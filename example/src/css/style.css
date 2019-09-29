@@ -1,0 +1,56 @@
+.circle {
+  /* position: absolute; */
+  transform: scale(0.5);
+  object-position: center center;
+  will-change: transform, opacity;
+  width: 150px;
+  height: 150px;
+  /* margin: -75px 0 0 -75px; */
+  border-radius: 50%;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+.photo {
+  width: 368px;
+  height: 200px;
+  border-radius: 4px;
+  box-shadow: 0 7px 20px 0 rgba(0, 0, 0, 0.12);
+  object-fit: cover;
+  object-position: top;
+  margin-left: 87px;
+}
+
+.photo.offset {
+  margin-left: 7px;
+  margin-right: 80px;
+}
+
+.review {
+  width: 300px;
+  padding: 25px;
+  border-radius: 4px;
+  box-shadow: 0 7px 20px 0 rgba(0, 0, 0, 0.12);
+  display: flex;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 15px;
+}
+
+.avatar img {
+  max-width: 100%;
+}
+
+.content p {
+  margin: 0;
+  color: #444;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 100;
+  text-align: left;
+}

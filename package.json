@@ -1,0 +1,26 @@
+{
+  "name": "react-marquee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "cp -r ./src/css ./dist/css && tsc -p .",
+    "build:watch": "tsc --watch -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "lodash": ">=0.1.0",
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.2",
+    "@types/lodash": "^4.14.138",
+    "lodash": ">=0.1.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-test-renderer": "^16.9.0",
+    "typescript": "^3.6.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
