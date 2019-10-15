@@ -12,6 +12,7 @@
     "strict": false,
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true
   }
