@@ -1,26 +1,33 @@
 {
   "name": "react-marquee",
+  "author": "Maxim Zubarev",
+  "license": "MIT",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "cp -r ./src/css ./dist/css && tsc -p .",
     "build:watch": "tsc --watch -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
+    "classnames": ">=2.0.0",
     "lodash": ">=0.1.0",
-    "react": ">=16.8.0"
+    "styled-components": ">=4.0.0"
   },
   "devDependencies": {
-    "@types/react": "^16.9.2",
     "@types/lodash": "^4.14.138",
+    "@types/node": "^12.7.12",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.1",
+    "@types/styled-components": "^4.1.19",
+    "eslint": "^6.5.1",
     "lodash": ">=0.1.0",
+    "prettier": "^1.18.2",
+    "prettier-eslint": "^9.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-test-renderer": "^16.9.0",
+    "styled-components": "^4.4.0",
     "typescript": "^3.6.2"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
