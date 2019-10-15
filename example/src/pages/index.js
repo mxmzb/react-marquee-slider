@@ -1,83 +1,126 @@
-import React from "react"
-import Slider from "react-marquee"
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import "../css/style.css"
+import "../css/style.css";
 
-const IndexPage = () => (
-  <div
-    className="wrapper"
-    style={{ height: 600, background: "#eee", margin: 20 }}
-  >
-    <Slider duration={40000} scatterRandomly minScale={0.7}>
-      <div style={{ padding: 25, background: "red" }}>
-        <div className="review">
-          <div className="avatar">
-            <img
-              src="https://randomuser.me/api/portraits/women/68.jpg"
-              alt=""
-            />
-          </div>
-          <div className="content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </div>
-      </div>
+import Reviews from "../components/reviews";
+import Companies from "../components/companies";
+import People from "../components/people";
+import Playground from "../components/playground";
+// import Tweets from "../components/tweets";
 
-      <div style={{ padding: 25, background: "red" }}>
-        <div className="review">
-          <div className="avatar">
-            <img
-              src="https://randomuser.me/api/portraits/women/68.jpg"
-              alt=""
-            />
-          </div>
-          <div className="content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </div>
-      </div>
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-      <div style={{ padding: 25, background: "red" }}>
-        <div className="review">
-          <div className="avatar">
-            <img
-              src="https://randomuser.me/api/portraits/women/68.jpg"
-              alt=""
-            />
-          </div>
-          <div className="content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </div>
-      </div>
+const Content = styled.div`
+  width: 100%;
+  max-width: 800px;
+`;
 
-      <div style={{ padding: 25, background: "red" }}>
-        <div className="review">
-          <div className="avatar">
-            <img
-              src="https://randomuser.me/api/portraits/women/68.jpg"
-              alt=""
-            />
-          </div>
-          <div className="content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </div>
-      </div>
-    </Slider>
-  </div>
-)
+const Loading = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transition: linear 0.5s all;
+  opacity: ${props => (props.loading === "true" ? 1 : 0)};
+`;
 
-export default IndexPage
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: ${props => (props.height ? props.height + "px" : "auto")};
+`;
+
+const Separator = styled.div`
+  height: ${props => props.height}px;
+`;
+
+const IndexPage = () => {
+  const [loading, setLoading] = useState({
+    reviews: true,
+    companies: true,
+    people: true,
+    playground: true,
+  });
+
+  const showLoading = true;
+
+  return (
+    <Wrapper>
+      {/* <Content>
+        <h1>React-Marque</h1>
+
+        <h2>Reviews</h2>
+      </Content>
+      <Container height={600}>
+        <Reviews
+          onFinish={() =>
+            setLoading(
+              Object.assign({}, loading, {
+                reviews: false,
+              }),
+            )
+          }
+        />
+        <Loading loading={showLoading && loading.reviews ? "true" : "false"} />
+      </Container>
+
+      <Content>
+        <h2>Companies</h2>
+      </Content>
+      <Container height={500}>
+        <Companies
+          onFinish={() =>
+            setLoading(
+              Object.assign({}, loading, {
+                companies: false,
+              }),
+            )
+          }
+        />
+        {showLoading && loading.companies && <Loading />}
+      </Container>
+
+      <Content>
+        <h2>People</h2>
+      </Content>
+      <Container height={460}>
+        <People
+          onFinish={() =>
+            setLoading(
+              Object.assign({}, loading, {
+                people: false,
+              }),
+            )
+          }
+        />
+        {showLoading && loading.people && <Loading />}
+      </Container> */}
+
+      <Content>
+        <h2>Playground</h2>
+      </Content>
+      <Playground
+        onFinish={() =>
+          setLoading(
+            Object.assign({}, loading, {
+              playground: false,
+            }),
+          )
+        }
+      />
+
+      <Separator height={100} />
+    </Wrapper>
+  );
+};
+
+export default IndexPage;

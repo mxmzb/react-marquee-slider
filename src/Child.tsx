@@ -1,30 +1,37 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, FC } from "react";
+import styled from "styled-components";
 
-type ChildProps = {
+const Container = styled.div<{ position: string }>`
+  display: inline-block;
+  position: ${props => props.position};
+`;
+
+type Props = {
   children: ReactNode;
-  top: number;
-  left: number;
+  x: number;
+  y: number;
   scale: number;
   scatterRandomly: boolean;
 };
 
-const Child = ({ children, top, left, scale, scatterRandomly }: ChildProps) => (
-  <div
-    className={`child-container${scatterRandomly ? " absolute" : ""}`}
-    style={{
-      boxSizing: "border-box",
-      left,
-      top,
-      transform: `scale(${scale})`,
-    }}
-  >
-    {children}
-  </div>
-);
+const Child: FC<Props> = ({ children, x, y, scale, scatterRandomly }: Props) => {
+  return (
+    <Container
+      position={scatterRandomly ? "absolute" : "relative"}
+      style={{
+        left: x,
+        top: y,
+        transform: `scale(${scale})`,
+      }}
+    >
+      {children}
+    </Container>
+  );
+};
 
 Child.defaultProps = {
-  top: 0,
-  left: 0,
+  x: 0,
+  y: 0,
   scale: 1,
   scatterRandomly: false,
 };

@@ -1,18 +1,52 @@
 export const randomFloatFromInterval = (min: number, max: number) =>
-  (Math.random() * (max - min) + min).toFixed(4);
+  parseFloat((Math.random() * (max - min) + min).toFixed(4));
 
 export const randomIntFromInterval = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+const clientRectToObject = (rect: ClientRect) => ({
+  top: rect.top,
+  right: rect.right,
+  bottom: rect.bottom,
+  left: rect.left,
+  width: rect.width,
+  height: rect.height,
+});
+
 // https://stackoverflow.com/a/12067046/744230
-export const doesOverlap = (rect1: ClientRect, rect2: ClientRect) =>
-  !(
+export const doesOverlap = (rect1: ClientRect, rect2: ClientRect, containerRect: ClientRect) => {
+  if (rect1.right > containerRect.width) {
+    return !(
+      rect1.right < rect2.left ||
+      rect1.left > rect2.right ||
+      rect1.bottom < rect2.top ||
+      rect1.top > rect2.bottom ||
+      rect1.right - containerRect.width > rect2.left
+    );
+  }
+
+  if (rect2.right > containerRect.width) {
+    return !(
+      rect1.right < rect2.left ||
+      rect1.left > rect2.right ||
+      rect1.bottom < rect2.top ||
+      rect1.top > rect2.bottom ||
+      rect2.right - containerRect.width > rect1.left
+    );
+  }
+
+  return !(
     rect1.right < rect2.left ||
     rect1.left > rect2.right ||
     rect1.bottom < rect2.top ||
     rect1.top > rect2.bottom
   );
+};
 
 export const outOfContainerBounds = (childRect: ClientRect, containerRect: ClientRect) =>
-  childRect.bottom > containerRect.bottom || childRect.right > containerRect.right;
+  childRect.bottom > containerRect.bottom;
+// appending `|| childRect.right > containerRect.right` would disallow overflowing
+// child elements from overflowing the right container edge. but that excludes a stripe
+// on the right container edge of the min element width from being filled, which may look
+// unnatural. so that's why we allow right overflow

@@ -1,3 +1,7 @@
-import Slider from "./Slider";
+import Marquee from "./Marquee";
+import Motion from "./Motion";
+import { randomIntFromInterval } from "./util";
 
-export default Slider;
+export { Motion, randomIntFromInterval };
+
+export default Marquee;
