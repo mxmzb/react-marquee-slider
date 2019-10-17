@@ -74,7 +74,7 @@ const Motion: FC<Props> = ({ children, initDeg, direction, velocity, radius }: P
       width: earthRef.current ? earthRef.current.clientWidth : 0,
       height: earthRef.current ? earthRef.current.clientHeight : 0,
     });
-  }, [earthRef.current]);
+  }, []);
 
   return (
     <Container buffer={radius * 2}>

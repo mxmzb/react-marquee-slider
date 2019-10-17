@@ -7,6 +7,7 @@ import Reviews from "../components/reviews";
 import Companies from "../components/companies";
 import People from "../components/people";
 import Playground from "../components/playground";
+
 // import Tweets from "../components/tweets";
 
 const Wrapper = styled.div`
@@ -55,8 +56,8 @@ const IndexPage = () => {
 
   return (
     <Wrapper>
-      {/* <Content>
-        <h1>React-Marque</h1>
+      <Content>
+        {/*  <h1>React-Marque</h1>
 
         <h2>Reviews</h2>
       </Content>
@@ -105,18 +106,9 @@ const IndexPage = () => {
         {showLoading && loading.people && <Loading />}
       </Container> */}
 
-      <Content>
         <h2>Playground</h2>
+        <Playground />
       </Content>
-      <Playground
-        onFinish={() =>
-          setLoading(
-            Object.assign({}, loading, {
-              playground: false,
-            }),
-          )
-        }
-      />
 
       <Separator height={100} />
     </Wrapper>
