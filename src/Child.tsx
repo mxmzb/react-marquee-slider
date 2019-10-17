@@ -14,20 +14,18 @@ type Props = {
   scatterRandomly: boolean;
 };
 
-const Child: FC<Props> = ({ children, x, y, scale, scatterRandomly }: Props) => {
-  return (
-    <Container
-      position={scatterRandomly ? "absolute" : "relative"}
-      style={{
-        left: x,
-        top: y,
-        transform: `scale(${scale})`,
-      }}
-    >
-      {children}
-    </Container>
-  );
-};
+const Child: FC<Props> = ({ children, x, y, scale, scatterRandomly }: Props) => (
+  <Container
+    position={scatterRandomly ? "absolute" : "relative"}
+    style={{
+      left: x,
+      top: y,
+      transform: `scale(${scale})`,
+    }}
+  >
+    {children}
+  </Container>
+);
 
 Child.defaultProps = {
   x: 0,
