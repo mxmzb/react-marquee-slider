@@ -22,7 +22,7 @@ const Container = styled.div`
   flex-wrap: nowrap;
 `;
 
-const marqueeAnim = keyframes`
+const marqueeAnimRtl = keyframes`
   0% {
     transform: translate(0, 0);
   }
@@ -32,14 +32,26 @@ const marqueeAnim = keyframes`
   }
 `;
 
-const Mirror = styled.div`
+const marqueeAnimLtr = keyframes`
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(100%, 0);
+  }
+`;
+
+const Mirror = styled.div<{ direction: "ltr" | "rtl" }>`
   min-width: 100%;
   flex-shrink: 0;
-  animation: ${marqueeAnim} linear infinite;
+  animation: ${props => (props.direction === "rtl" ? marqueeAnimRtl : marqueeAnimLtr)} linear
+    infinite;
 `;
 
 type MarqueeProps = {
   children: ReactNode[];
+  direction: "ltr" | "rtl";
   minScale: number;
   maxScale: number;
   velocity: number; // move x pixels per second
@@ -53,6 +65,7 @@ const NESTED_UPDATE_LIMIT = 50;
 
 const Marquee: FC<MarqueeProps> = ({
   children,
+  direction,
   velocity,
   scatterRandomly,
   minScale,
@@ -83,7 +96,7 @@ const Marquee: FC<MarqueeProps> = ({
       });
     }
     setAnimationDuration(containerRef.current.clientWidth / velocity);
-  }, [scatterRandomly]);
+  }, [scatterRandomly, velocity]);
 
   useEffect(() => {
     if (scatterRandomly && nestedUpdateCount < NESTED_UPDATE_LIMIT) {
@@ -157,6 +170,8 @@ const Marquee: FC<MarqueeProps> = ({
     children.length,
     containerSize,
     scatterRandomly,
+    minScale,
+    maxScale,
   ]);
 
   useEffect(() => {
@@ -171,14 +186,18 @@ const Marquee: FC<MarqueeProps> = ({
     }
   }, [nestedUpdateCount, retryAfterExceedingUpdateDepthTrigger]);
 
-  const renderChild = (child: ReactNode, index: number) => {
+  const renderChild = (child: ReactNode, index: number, isOriginal: boolean) => {
     let pos: Position;
     if (childrenPosition[index] !== undefined) {
       pos = childrenPosition[index];
     }
 
     return (
-      <Child key={index} {...pos} scatterRandomly={scatterRandomly}>
+      <Child
+        key={`${isOriginal ? "child-original" : "child-clone"}-${index}`}
+        {...pos}
+        scatterRandomly={scatterRandomly}
+      >
         {child}
       </Child>
     );
@@ -190,17 +209,22 @@ const Marquee: FC<MarqueeProps> = ({
 
   return (
     <Container ref={containerRef}>
-      <Mirror ref={marqueeRef} style={{ animationDuration: `${animationDuration}s` }}>
-        {filteredChildren.map(renderChild)}
+      <Mirror
+        ref={marqueeRef}
+        style={{ animationDuration: `${animationDuration}s` }}
+        direction={direction}
+      >
+        {filteredChildren.map((c, i) => renderChild(c, i, true))}
       </Mirror>
-      <Mirror className="marquee repeater" style={{ animationDuration: `${animationDuration}s` }}>
-        {filteredChildren.map(renderChild)}
+      <Mirror style={{ animationDuration: `${animationDuration}s` }} direction={direction}>
+        {filteredChildren.map((c, i) => renderChild(c, i, false))}
       </Mirror>
     </Container>
   );
 };
 
 Marquee.defaultProps = {
+  direction: "rtl",
   velocity: 30,
   minScale: 1,
   maxScale: 1,
