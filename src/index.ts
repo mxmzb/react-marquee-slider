@@ -1,7 +1,8 @@
 import Marquee from "./Marquee";
 import Motion from "./Motion";
-import { randomIntFromInterval } from "./util";
+import Scale from "./Scale";
+import { randomIntFromInterval, randomFloatFromInterval } from "./util";
 
-export { Motion, randomIntFromInterval };
+export { Motion, Scale, randomIntFromInterval, randomFloatFromInterval };
 
 export default Marquee;

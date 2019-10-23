@@ -4,21 +4,16 @@ import Child from "./Child";
 
 import { Position } from "./Types";
 
-import {
-  doesOverlap,
-  outOfContainerBounds,
-  randomIntFromInterval,
-  randomFloatFromInterval,
-} from "./util";
+import { doesOverlap, outOfContainerBounds, randomIntFromInterval } from "./util";
 
 const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: nowrap;
 `;
 
@@ -52,8 +47,6 @@ const Mirror = styled.div<{ direction: "ltr" | "rtl" }>`
 type MarqueeProps = {
   children: ReactNode[];
   direction: "ltr" | "rtl";
-  minScale: number;
-  maxScale: number;
   velocity: number; // move x pixels per second
   scatterRandomly: boolean;
   debug: boolean;
@@ -68,8 +61,6 @@ const Marquee: FC<MarqueeProps> = ({
   direction,
   velocity,
   scatterRandomly,
-  minScale,
-  maxScale,
   resetAfterTries,
   onFinish,
   debug,
@@ -151,7 +142,6 @@ const Marquee: FC<MarqueeProps> = ({
           {
             x: randomIntFromInterval(0, containerSize.width),
             y: randomIntFromInterval(0, containerSize.height),
-            scale: randomFloatFromInterval(minScale, maxScale),
           },
         ]);
         setNestedUpdateCount(nestedUpdateCount + 1);
@@ -170,8 +160,6 @@ const Marquee: FC<MarqueeProps> = ({
     children.length,
     containerSize,
     scatterRandomly,
-    minScale,
-    maxScale,
   ]);
 
   useEffect(() => {
@@ -209,6 +197,9 @@ const Marquee: FC<MarqueeProps> = ({
 
   return (
     <Container ref={containerRef}>
+      <Mirror style={{ animationDuration: `${animationDuration}s` }} direction={direction}>
+        {filteredChildren.map((c, i) => renderChild(c, i, false))}
+      </Mirror>
       <Mirror
         ref={marqueeRef}
         style={{ animationDuration: `${animationDuration}s` }}
@@ -226,8 +217,6 @@ const Marquee: FC<MarqueeProps> = ({
 Marquee.defaultProps = {
   direction: "rtl",
   velocity: 30,
-  minScale: 1,
-  maxScale: 1,
   scatterRandomly: false,
   debug: false,
 

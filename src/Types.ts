@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 export interface Position {
   x: number;
   y: number;
-  scale: number;
 }
 
 export interface Motion {

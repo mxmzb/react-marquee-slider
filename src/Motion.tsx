@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect, ReactNode, FC } from "react";
 import styled, { keyframes } from "styled-components";
 
-const Container = styled.div<{ buffer: number }>`
+const Container = styled.div<{ buffer: number; backgroundColor: string }>`
   display: flex;
   width: ${props => props.buffer}px;
   height: ${props => props.buffer}px;
   justify-content: center;
   align-items: center;
+  background-color: ${props => props.backgroundColor};
 `;
 
 const Space = styled.div<{ width: number; height: number }>`
@@ -15,7 +16,12 @@ const Space = styled.div<{ width: number; height: number }>`
   height: ${props => props.height}px;
 `;
 
-const SolarSystem = styled.div<{ width: number; initDeg: number; direction: string }>`
+const SolarSystem = styled.div<{
+  width: number;
+  initDeg: number;
+  direction: string;
+  backgroundColor: string;
+}>`
   position: absolute;
   left: 50%;
   top: 50%;
@@ -24,11 +30,13 @@ const SolarSystem = styled.div<{ width: number; initDeg: number; direction: stri
   width: ${props => props.width}px;
   height: ${props => props.width}px;
   animation: ${props => orbit(props.initDeg, props.direction)} linear infinite;
+  background-color: ${props => props.backgroundColor};
 `;
 
-const Earth = styled.div<{ initDeg: number; direction: string }>`
+const Earth = styled.div<{ initDeg: number; direction: string; backgroundColor: string }>`
   display: inline-block;
   animation: ${props => reconciliation(props.initDeg, props.direction)} linear infinite;
+  background-color: ${props => props.backgroundColor};
 `;
 
 const orbit = (initDeg: number, direction: string) => keyframes`
@@ -56,10 +64,22 @@ type Props = {
   initDeg: number;
   velocity: number; // move x pixels per second
   radius: number;
+  backgroundColors: {
+    earth: string;
+    solarSystem: string;
+    buffer: string;
+  };
   direction: "clockwise" | "counterclockwise";
 };
 
-const Motion: FC<Props> = ({ children, initDeg, direction, velocity, radius }: Props) => {
+const Motion: FC<Props> = ({
+  children,
+  initDeg,
+  direction,
+  velocity,
+  radius,
+  backgroundColors,
+}: Props) => {
   const earthRef = useRef(null);
   const [earthSize, setEarthSize] = useState({ width: 0, height: 0 });
 
@@ -77,19 +97,21 @@ const Motion: FC<Props> = ({ children, initDeg, direction, velocity, radius }: P
   }, []);
 
   return (
-    <Container buffer={radius * 2}>
+    <Container buffer={radius * 2} backgroundColor={backgroundColors.buffer}>
       <Space width={earthSize.width} height={earthSize.height}>
         <SolarSystem
           style={{ animationDuration: `${animationDuration}s` }}
           width={width}
           initDeg={initDeg}
           direction={direction}
+          backgroundColor={backgroundColors.solarSystem}
         >
           <Earth
             ref={earthRef}
             style={{ animationDuration: `${animationDuration}s` }}
             initDeg={initDeg}
             direction={direction}
+            backgroundColor={backgroundColors.earth}
           >
             {children}
           </Earth>
@@ -104,6 +126,11 @@ Motion.defaultProps = {
   velocity: 10, // move x pixels per second
   radius: 10,
   direction: "clockwise",
+  backgroundColors: {
+    earth: "transparent",
+    solarSystem: "transparent",
+    buffer: "transparent",
+  },
 };
 
 export default Motion;
