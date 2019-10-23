@@ -2,6 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Marquee, { Motion, randomIntFromInterval } from "react-marquee";
 
+import FullWidth from "../components/FullWidth";
+
+const Height = styled.div`
+  position: relative;
+  width: 100%;
+  height: ${props => (props.height ? props.height + "px" : "auto")};
+`;
+
 const Company = styled.div`
   position: relative;
   width: 75px;
@@ -23,125 +31,122 @@ const Circle = styled.img`
 
 const baseUrl = "https://assets.zeit.co/image/upload/q_auto/front/home/isos/";
 
-const Companies = ({ onFinish }) => (
-  <Marquee
-    velocity={12}
-    scatterRandomly
-    minScale={0.7}
-    resetAfterTries={200}
-    onFinish={onFinish}
-    debug
-  >
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}letsencrypt-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+const Companies = () => (
+  <FullWidth>
+    <Height height={500}>
+      <Marquee velocity={12} scatterRandomly minScale={0.7} resetAfterTries={200} debug>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}letsencrypt-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}sanity-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}sanity-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}next-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}next-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}contentful-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}contentful-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}python-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}python-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}twilio-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}twilio-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}jekyll-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}jekyll-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}nuxt-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}nuxt-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}js-icon.svg`} alt="" />
-      </Company>
-    </Motion>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}js-icon.svg`} alt="" />
+          </Company>
+        </Motion>
 
-    <Motion
-      initDeg={randomIntFromInterval(0, 360)}
-      direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-      velocity={10}
-      radius={100}
-    >
-      <Company>
-        <Circle src={`${baseUrl}hugo-icon.svg`} alt="" />
-      </Company>
-    </Motion>
-  </Marquee>
+        <Motion
+          initDeg={randomIntFromInterval(0, 360)}
+          direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+          velocity={10}
+          radius={100}
+        >
+          <Company>
+            <Circle src={`${baseUrl}hugo-icon.svg`} alt="" />
+          </Company>
+        </Motion>
+      </Marquee>
+    </Height>
+  </FullWidth>
 );
 
 export default Companies;

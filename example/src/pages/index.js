@@ -44,75 +44,27 @@ const Separator = styled.div`
   height: ${props => props.height}px;
 `;
 
-const IndexPage = () => {
-  const [loading, setLoading] = useState({
-    reviews: true,
-    companies: true,
-    people: true,
-    playground: true,
-  });
+const IndexPage = () => (
+  <Wrapper>
+    <Content>
+      <h2>Companies</h2>
+      <Reviews />
+      <Separator height={50} />
 
-  const showLoading = true;
+      <h2>Companies</h2>
+      <Companies />
+      <Separator height={50} />
 
-  return (
-    <Wrapper>
-      <Content>
-        {/*  <h1>React-Marque</h1>
+      <h2>People</h2>
+      <People />
+      <Separator height={50} />
 
-        <h2>Reviews</h2>
-      </Content>
-      <Container height={600}>
-        <Reviews
-          onFinish={() =>
-            setLoading(
-              Object.assign({}, loading, {
-                reviews: false,
-              }),
-            )
-          }
-        />
-        <Loading loading={showLoading && loading.reviews ? "true" : "false"} />
-      </Container>
+      <h2>Playground</h2>
+      <Playground />
+    </Content>
 
-      <Content>
-        <h2>Companies</h2>
-      </Content>
-      <Container height={500}>
-        <Companies
-          onFinish={() =>
-            setLoading(
-              Object.assign({}, loading, {
-                companies: false,
-              }),
-            )
-          }
-        />
-        {showLoading && loading.companies && <Loading />}
-      </Container>
-
-      <Content>
-        <h2>People</h2>
-      </Content>
-      <Container height={460}>
-        <People
-          onFinish={() =>
-            setLoading(
-              Object.assign({}, loading, {
-                people: false,
-              }),
-            )
-          }
-        />
-        {showLoading && loading.people && <Loading />}
-      </Container> */}
-
-        <h2>Playground</h2>
-        <Playground />
-      </Content>
-
-      <Separator height={100} />
-    </Wrapper>
-  );
-};
+    <Separator height={100} />
+  </Wrapper>
+);
 
 export default IndexPage;
