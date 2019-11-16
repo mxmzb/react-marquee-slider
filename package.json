@@ -37,6 +37,10 @@
     "styled-components": "^4.4.0",
     "typescript": "^3.6.2"
   },
+  "files": [
+    "./dist",
+    "./example"
+  ],
   "keywords": [
     "react",
     "marquee",
