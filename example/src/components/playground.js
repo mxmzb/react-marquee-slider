@@ -4,7 +4,7 @@ import Marquee, {
   Scale,
   randomIntFromInterval,
   randomFloatFromInterval,
-} from "react-marquee";
+} from "react-marquee-slider";
 import styled from "styled-components";
 import { Slider, FormControlLabel, RadioGroup, Radio, Switch } from "@material-ui/core";
 import nanoid from "nanoid";
@@ -13,6 +13,18 @@ import { Hook, Console, Decode } from "console-feed";
 import _ from "lodash";
 
 import FullWidth from "../components/FullWidth";
+
+import logoAmazon from "../images/amazon.svg";
+import logoAngular from "../images/angular.svg";
+import logoApple from "../images/apple.svg";
+import logoGatsby from "../images/gatsby.svg";
+import logoLamborghini from "../images/lamborghini.svg";
+import logoMicrosoft from "../images/microsoft.svg";
+import logoNext from "../images/next.svg";
+import logoPython from "../images/python.svg";
+import logoRollsRoyce from "../images/rolls-royce.svg";
+import logoTesla from "../images/tesla-motors.svg";
+import logoTwilio from "../images/twilio.svg";
 
 const Row = styled.div`
   display: flex;
@@ -32,7 +44,7 @@ const Company = styled.div`
   height: 75px;
 `;
 
-const Circle = styled.img`
+const Circle = styled.div`
   position: absolute;
   transform: scale(0.5);
   object-position: center center;
@@ -43,6 +55,17 @@ const Circle = styled.img`
   left: -50%;
   border-radius: 50%;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Logo = styled.img`
+  display: block;
+  /* https://stackoverflow.com/questions/24843676/how-can-i-fit-a-square-html-image-inside-a-circle-border */
+  /* just making it < 70.7% */
+  width: 60%;
+  height: 60%;
 `;
 
 const ColorPickers = styled.div`
@@ -88,25 +111,24 @@ const Loading = styled.div`
   width: 100%;
   height: 100%;
   transition: all 1s linear;
-  opacity: ${props => (props.loading ? 1 : 0)};
+  opacity: ${props => (props.loading === "true" ? 1 : 0)};
   background: #fff;
   justify-content: center;
   align-items: center;
 `;
 
-const baseUrl = "https://assets.zeit.co/image/upload/q_auto/front/home/isos/";
-
 const icons = [
-  "letsencrypt",
-  "sanity",
-  "next",
-  "contentful",
-  "python",
-  "twilio",
-  "jekyll",
-  "nuxt",
-  "js",
-  "hugo",
+  logoAmazon,
+  logoGatsby,
+  logoAngular,
+  logoApple,
+  logoLamborghini,
+  logoMicrosoft,
+  logoNext,
+  logoPython,
+  logoRollsRoyce,
+  logoTesla,
+  logoTwilio,
 ];
 
 const colors = [
@@ -138,6 +160,7 @@ const PerfMarquee = React.memo(
     scatterRandomly,
     scale,
     resetAfterTries,
+    iconsAmount,
     iconsMeta,
     onFinish,
     motionVelocity,
@@ -155,17 +178,18 @@ const PerfMarquee = React.memo(
       onFinish={onFinish}
       debug
     >
-      {icons.map((icon, index) => (
-        <Scale scale={iconsMeta[index].scale}>
+      {_.times(iconsAmount, Number).map(index => (
+        <Scale scale={iconsMeta[index].scale} key={`marquee-example-playground-${index}`}>
           <Motion
             {...iconsMeta[index]}
             velocity={motionVelocity}
             radius={motionRadius}
-            key={`icon-${icon}`}
             backgroundColors={palette}
           >
             <Company>
-              <Circle src={`${baseUrl}${icon}-icon.svg`} alt="" />
+              <Circle>
+                <Logo src={icons[index]} alt="" />
+              </Circle>
             </Company>
           </Motion>
         </Scale>
@@ -184,6 +208,7 @@ const Playground = () => {
     earth: "transparent",
     solarSystem: "transparent",
   });
+  const [iconsAmount, setIconsAmount] = useState(8);
   const [direction, setDirection] = useState("ltr");
   const [scatterRandomly, setScatterRandomly] = useState(true);
   const [height, setHeight] = useState(500);
@@ -204,7 +229,7 @@ const Playground = () => {
       });
     }
     return metaArr;
-  }, [scale[0], scale[1]]);
+  }, [scale, scale[0], scale[1]]);
 
   useEffect(() => {
     Hook(window.console, log => {
@@ -255,6 +280,26 @@ const Playground = () => {
         </ColorPickers>
 
         <Settings>
+          <Label
+            label="Icons amount:"
+            value={iconsAmount}
+            help="How many icons to show. The less icons, the easier it is to find space for icons. The higher you put this, the higher you should set the container height, too. Wide screens also help."
+          />
+          <Slider
+            min={1}
+            max={icons.length}
+            value={iconsAmount}
+            step={1}
+            getAriaValueText={v => v}
+            valueLabelDisplay="auto"
+            onChange={(_, val) => {
+              setLoading(true);
+              setKey(nanoid());
+              setIconsAmount(val);
+            }}
+          />
+          <Separator height={25} />
+
           <RadioGroup defaultValue="ltr" name="customized-radios">
             <FormControlLabel
               value="ltr"
@@ -419,12 +464,55 @@ const Playground = () => {
             resetAfterTries={resetAfterTries}
             motionVelocity={motionVelocity}
             motionRadius={motionRadius}
+            iconsAmount={iconsAmount}
             iconsMeta={iconsMeta}
             palette={palette}
             onFinish={() => setLoading(false)}
           />
-          <Loading loading={scatterRandomly && showLoading ? loading : false}>
-            <img src="https://loading.io/spinners/gears/index.dual-gear-loading-icon.gif" alt="" />
+          <Loading loading={scatterRandomly && showLoading ? loading.toString() : false.toString()}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              width="200px"
+              height="200px"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="xMidYMid"
+            >
+              <defs>
+                <path id="path" d="M50 15A15 35 0 0 1 50 85A15 35 0 0 1 50 15" fill="none"></path>
+                <path id="patha" d="M0 0A15 35 0 0 1 0 70A15 35 0 0 1 0 0" fill="none"></path>
+              </defs>
+              <g transform="rotate(0 50 50)">
+                <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
+              </g>
+              <g transform="rotate(60 50 50)">
+                <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
+              </g>
+              <g transform="rotate(120 50 50)">
+                <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
+              </g>
+              <g transform="rotate(0 50 50)">
+                <circle cx="50" cy="15" r="9" fill="#e15b64">
+                  <animateMotion dur="1s" repeatCount="indefinite" begin="0s">
+                    <mpath xlinkHref="#patha"></mpath>
+                  </animateMotion>
+                </circle>
+              </g>
+              <g transform="rotate(60 50 50)">
+                <circle cx="50" cy="15" r="9" fill="#f8b26a">
+                  <animateMotion dur="1s" repeatCount="indefinite" begin="-0.16666666666666666s">
+                    <mpath xlinkHref="#patha"></mpath>
+                  </animateMotion>
+                </circle>
+              </g>
+              <g transform="rotate(120 50 50)">
+                <circle cx="50" cy="15" r="9" fill="#abbd81">
+                  <animateMotion dur="1s" repeatCount="indefinite" begin="-0.3333333333333333s">
+                    <mpath xlinkHref="#patha"></mpath>
+                  </animateMotion>
+                </circle>
+              </g>
+            </svg>
           </Loading>
         </Height>
         <IFrame>

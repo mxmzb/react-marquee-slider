@@ -1,6 +1,7 @@
 import React from "react";
-import Marquee from "react-marquee";
+import Marquee from "react-marquee-slider";
 import styled from "styled-components";
+import _ from "lodash";
 
 import FullWidth from "../components/FullWidth";
 
@@ -14,61 +15,21 @@ const Reviews = () => (
   <FullWidth>
     <Height height={600}>
       <Marquee velocity={25} scatterRandomly minScale={0.7} debug>
-        <div style={{ padding: 25 }}>
-          <div className="review">
-            <div className="avatar">
-              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ padding: 25 }}>
-          <div className="review">
-            <div className="avatar">
-              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
-              </p>
+        {_.times(5, String).map(id => (
+          <div style={{ padding: 25 }} key={`marquee-example-review-${id}`}>
+            <div className="review">
+              <div className="avatar">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" />
+              </div>
+              <div className="content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div style={{ padding: 25 }}>
-          <div className="review">
-            <div className="avatar">
-              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ padding: 25 }}>
-          <div className="review">
-            <div className="avatar">
-              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-          </div>
-        </div>
+        ))}
       </Marquee>
     </Height>
   </FullWidth>

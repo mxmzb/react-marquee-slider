@@ -1,34 +1,62 @@
 import React from "react";
-import Marquee from "react-marquee";
+import _ from "lodash";
+import Marquee from "react-marquee-slider";
 
 import FullWidth from "../components/FullWidth";
 
-const baseUrl = "https://assets.zeit.co/image/upload/q_auto/front/jobs/carousel";
+import photoPeople1 from "../images/people-1.jpg";
+import photoPeople2 from "../images/people-2.jpg";
+import photoPeople3 from "../images/people-3.jpg";
+import photoPeople4 from "../images/people-4.jpg";
+import photoPeople5 from "../images/people-5.jpg";
+import photoPeople6 from "../images/people-6.jpg";
+import photoPeople7 from "../images/people-7.jpg";
+import photoPeople8 from "../images/people-8.jpg";
+import photoPeople9 from "../images/people-9.jpg";
+import photoPeople10 from "../images/people-10.jpg";
+import photoPeople11 from "../images/people-11.jpg";
+import photoPeople12 from "../images/people-12.jpg";
+import photoPeople13 from "../images/people-13.jpg";
+import photoPeople14 from "../images/people-14.jpg";
+
+const photos = [
+  photoPeople1,
+  photoPeople2,
+  photoPeople3,
+  photoPeople4,
+  photoPeople5,
+  photoPeople6,
+  photoPeople7,
+  photoPeople8,
+  photoPeople9,
+  photoPeople10,
+  photoPeople11,
+  photoPeople12,
+  photoPeople13,
+  photoPeople14,
+];
 
 const People = () => (
   <div>
     <FullWidth>
       <div style={{ height: 200, paddingBottom: 60 }}>
         <Marquee velocity={25} debug>
-          <img src={`${baseUrl}/02.jpg`} className="photo" alt="" />
-          <img src={`${baseUrl}/03.jpg`} className="photo" alt="" />
-          <img src={`${baseUrl}/04.jpg`} className="photo" alt="" />
-          <img src={`${baseUrl}/06.jpg`} className="photo" alt="" />
-          <img src={`${baseUrl}/15.jpg`} className="photo" alt="" />
-          <img src={`${baseUrl}/07.jpg`} className="photo" alt="" />
-          <img src={`${baseUrl}/14.jpg`} className="photo" alt="" />
+          {_.times(7, Number).map(key => (
+            <img src={photos[key]} className="photo" alt="" key={`marquee-example-people-${key}`} />
+          ))}
         </Marquee>
       </div>
 
       <div style={{ height: 200 }}>
         <Marquee velocity={25}>
-          <img src={`${baseUrl}/02.jpg`} className="photo offset" alt="" />
-          <img src={`${baseUrl}/03.jpg`} className="photo offset" alt="" />
-          <img src={`${baseUrl}/04.jpg`} className="photo offset" alt="" />
-          <img src={`${baseUrl}/06.jpg`} className="photo offset" alt="" />
-          <img src={`${baseUrl}/15.jpg`} className="photo offset" alt="" />
-          <img src={`${baseUrl}/07.jpg`} className="photo offset" alt="" />
-          <img src={`${baseUrl}/14.jpg`} className="photo offset" alt="" />
+          {_.times(7, Number).map(key => (
+            <img
+              src={photos[key + 7]}
+              className="photo offset"
+              alt=""
+              key={`marquee-example-people-${key + 7}`}
+            />
+          ))}
         </Marquee>
       </div>
     </FullWidth>
