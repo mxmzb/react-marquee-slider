@@ -4,6 +4,9 @@
   "license": "MIT",
   "version": "1.0.0",
   "description": "The marquee slider of your wildest dreams. Only for React.js ⛺",
+  "homepage": "https://maximzubarev.com/projects/react-marquee-slider",
+  "repository": "https://github.com/mxmzb/react-marquee-slider.git",
+  "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p .",
@@ -39,6 +42,5 @@
     "slider-component",
     "react-component"
   ],
-  "repository": "https://github.com/mxmzb/react-marquee-slider.git",
   "private": false
 }
