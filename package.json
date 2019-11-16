@@ -1,9 +1,9 @@
 {
-  "name": "react-marquee",
+  "name": "react-marquee-slider",
   "author": "Maxim Zubarev",
   "license": "MIT",
   "version": "1.0.0",
-  "description": "",
+  "description": "The marquee slider of your wildest dreams. Only for React.js ⛺",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p .",
@@ -28,7 +28,17 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-test-renderer": "^16.9.0",
+    "release-it": "^12.4.3",
     "styled-components": "^4.4.0",
     "typescript": "^3.6.2"
-  }
+  },
+  "keywords": [
+    "react",
+    "marquee",
+    "slider",
+    "slider-component",
+    "react-component"
+  ],
+  "repository": "https://github.com/mxmzb/react-marquee-slider.git",
+  "private": false
 }
