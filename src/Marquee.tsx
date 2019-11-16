@@ -118,7 +118,7 @@ const Marquee: FC<MarqueeProps> = ({
           if (
             !hasOverlaps &&
             siblings.length === childrenPosition.length &&
-            childrenPosition.length == children.length
+            childrenPosition.length === children.length
           ) {
             if (debug) {
               const t1 = performance.now();
@@ -163,7 +163,6 @@ const Marquee: FC<MarqueeProps> = ({
   ]);
 
   useEffect(() => {
-    // console.log("nestedUpdateCount", nestedUpdateCount);
     if (nestedUpdateCount >= NESTED_UPDATE_LIMIT) {
       const resetRenderTimer = setTimeout(() => {
         setNestedUpdateCount(0);

@@ -5,34 +5,27 @@ export const randomIntFromInterval = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const clientRectToObject = (rect: ClientRect) => ({
-  top: rect.top,
-  right: rect.right,
-  bottom: rect.bottom,
-  left: rect.left,
-  width: rect.width,
-  height: rect.height,
-});
-
 // https://stackoverflow.com/a/12067046/744230
 export const doesOverlap = (rect1: ClientRect, rect2: ClientRect, containerRect: ClientRect) => {
-  if (rect1.right > containerRect.width) {
-    return !(
-      rect1.right < rect2.left ||
-      rect1.left > rect2.right ||
-      rect1.bottom < rect2.top ||
-      rect1.top > rect2.bottom ||
-      rect1.right - containerRect.width > rect2.left
+  if (rect1.right > containerRect.right) {
+    return (
+      !(
+        rect1.right < rect2.left ||
+        rect1.left > rect2.right ||
+        rect1.bottom < rect2.top ||
+        rect1.top > rect2.bottom
+      ) || rect1.right - containerRect.right > rect2.left
     );
   }
 
-  if (rect2.right > containerRect.width) {
-    return !(
-      rect1.right < rect2.left ||
-      rect1.left > rect2.right ||
-      rect1.bottom < rect2.top ||
-      rect1.top > rect2.bottom ||
-      rect2.right - containerRect.width > rect1.left
+  if (rect2.right > containerRect.right) {
+    return (
+      !(
+        rect1.right < rect2.left ||
+        rect1.left > rect2.right ||
+        rect1.bottom < rect2.top ||
+        rect1.top > rect2.bottom
+      ) || rect2.right - containerRect.right > rect1.left
     );
   }
 
