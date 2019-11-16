@@ -38,8 +38,8 @@
     "typescript": "^3.6.2"
   },
   "files": [
-    "./dist",
-    "./example"
+    "dist",
+    "example"
   ],
   "keywords": [
     "react",
