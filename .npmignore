@@ -1,0 +1,11 @@
+tsconfig.json
+src
+example
+.DS_Store
+img
+.jest
+.vscode
+jest
+jest.config.js
+.circleci
+__tests__
