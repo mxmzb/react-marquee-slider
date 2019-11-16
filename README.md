@@ -4,8 +4,8 @@
 
 <br />
 
-<h1 align="center">React Marquee</h1>
-<h3 align="center">The marquee slider of your deepest dreams. In React.js</h3>
+<h2 align="center">React Marquee Slider</h2>
+<h3 align="center">The marquee slider of your deepest dreams. Only for React.js</h3>
 
 <p align="center">
   <a href="https://npmjs.org/package/react-marquee-slider">
@@ -23,8 +23,8 @@
 ## Demo
 
 ```
-$ git clone https://github.com/mxmzb/react-marquee.git
-$ cd react-marquee && yarn
+$ git clone https://github.com/mxmzb/react-marquee-slider.git
+$ cd react-marquee-slider && yarn
 $ cd example && yarn
 $ yarn start
 ```
@@ -38,7 +38,7 @@ A marquee slider, that can randomly position child elements in the container. Th
 ## Installation
 
 ```
-$ yarn add react-marquee
+$ yarn add react-marquee-slider
 $ yarn add lodash classnames # install peer dependencies
 ```
 
