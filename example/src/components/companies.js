@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import _ from "lodash";
 import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
+import { withSize } from "react-sizeme";
+import nanoid from "nanoid";
 
 import FullWidth from "../components/FullWidth";
 
@@ -25,8 +27,8 @@ const Height = styled.div`
 
 const Company = styled.div`
   position: relative;
-  width: 75px;
-  height: 75px;
+  width: ${props => props.scale * 75}px;
+  height: ${props => props.scale * 75}px;
 `;
 
 const Circle = styled.div`
@@ -34,8 +36,8 @@ const Circle = styled.div`
   transform: scale(0.5);
   object-position: center center;
   will-change: transform, opacity;
-  width: 150px;
-  height: 150px;
+  width: ${props => props.scale * 150}px;
+  height: ${props => props.scale * 150}px;
   top: -50%;
   left: -50%;
   border-radius: 50%;
@@ -67,28 +69,50 @@ const icons = [
   logoTwilio,
 ];
 
-const Companies = () => (
-  <FullWidth>
-    <Height height={500}>
-      <Marquee velocity={12} scatterRandomly minScale={0.7} resetAfterTries={200} debug>
-        {_.times(8, Number).map(key => (
-          <Motion
-            key={`marquee-example-company-${key}`}
-            initDeg={randomIntFromInterval(0, 360)}
-            direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-            velocity={10}
-            radius={100}
-          >
-            <Company>
-              <Circle>
-                <Logo src={icons[key]} alt="" />
-              </Circle>
-            </Company>
-          </Motion>
-        ))}
-      </Marquee>
-    </Height>
-  </FullWidth>
-);
+const Companies = ({ size }) => {
+  const [key, setKey] = useState(nanoid());
 
-export default Companies;
+  useEffect(() => {
+    setKey(nanoid());
+  }, [size, size.width]);
+
+  let scale = 0.5;
+
+  if (size && size.width > 800) {
+    scale = 0.65;
+  }
+
+  if (size && size.width > 1100) {
+    scale = 0.8;
+  }
+
+  if (size && size.width > 1400) {
+    scale = 1;
+  }
+
+  return (
+    <FullWidth>
+      <Height height={500}>
+        <Marquee key={key} velocity={12} scatterRandomly minScale={0.7} resetAfterTries={200} debug>
+          {_.times(8, Number).map(id => (
+            <Motion
+              key={`marquee-example-company-${id}`}
+              initDeg={randomIntFromInterval(0, 360)}
+              direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+              velocity={10}
+              radius={scale * 100}
+            >
+              <Company scale={scale}>
+                <Circle scale={scale}>
+                  <Logo src={icons[id]} alt="" />
+                </Circle>
+              </Company>
+            </Motion>
+          ))}
+        </Marquee>
+      </Height>
+    </FullWidth>
+  );
+};
+
+export default withSize()(Companies);

@@ -10,7 +10,8 @@ import { Slider, FormControlLabel, RadioGroup, Radio, Switch } from "@material-u
 import nanoid from "nanoid";
 import { GithubPicker } from "react-color";
 import { Hook, Console, Decode } from "console-feed";
-import _ from "lodash";
+import times from "lodash/times";
+import { SizeMe } from "react-sizeme";
 
 import FullWidth from "../components/FullWidth";
 
@@ -40,8 +41,8 @@ const Height = styled.div`
 
 const Company = styled.div`
   position: relative;
-  width: 75px;
-  height: 75px;
+  width: ${props => props.scale * 75}px;
+  height: ${props => props.scale * 75}px;
 `;
 
 const Circle = styled.div`
@@ -49,8 +50,8 @@ const Circle = styled.div`
   transform: scale(0.5);
   object-position: center center;
   will-change: transform, opacity;
-  width: 150px;
-  height: 150px;
+  width: ${props => props.scale * 150}px;
+  height: ${props => props.scale * 150}px;
   top: -50%;
   left: -50%;
   border-radius: 50%;
@@ -158,6 +159,8 @@ const PerfMarquee = React.memo(
     direction,
     velocity,
     scatterRandomly,
+    minScale,
+    maxScale,
     scale,
     resetAfterTries,
     iconsAmount,
@@ -172,13 +175,13 @@ const PerfMarquee = React.memo(
       direction={direction}
       velocity={velocity}
       scatterRandomly={scatterRandomly}
-      minScale={scale[0]}
-      maxScale={scale[1]}
+      minScale={minScale}
+      maxScale={maxScale}
       resetAfterTries={resetAfterTries}
       onFinish={onFinish}
       debug
     >
-      {_.times(iconsAmount, Number).map(index => (
+      {times(iconsAmount, Number).map(index => (
         <Scale scale={iconsMeta[index].scale} key={`marquee-example-playground-${index}`}>
           <Motion
             {...iconsMeta[index]}
@@ -186,8 +189,8 @@ const PerfMarquee = React.memo(
             radius={motionRadius}
             backgroundColors={palette}
           >
-            <Company>
-              <Circle>
+            <Company scale={scale}>
+              <Circle scale={scale}>
                 <Logo src={icons[index]} alt="" />
               </Circle>
             </Company>
@@ -197,6 +200,116 @@ const PerfMarquee = React.memo(
     </Marquee>
   ),
 );
+
+const PlaygroundDemo = ({
+  artificialKey,
+  scatterRandomly,
+  height,
+  direction,
+  velocity,
+  scale,
+  resetAfterTries,
+  motionVelocity,
+  motionRadius,
+  iconsAmount,
+  iconsMeta,
+  palette,
+  loading,
+  showLoading,
+  setLoading,
+  setKey,
+  logs,
+  size,
+}) => {
+  useEffect(() => {
+    setKey(nanoid());
+  }, [size, size.width]);
+
+  let transformScale = 0.5;
+
+  if (size && size.width > 800) {
+    transformScale = 0.65;
+  }
+
+  if (size && size.width > 1100) {
+    transformScale = 0.8;
+  }
+
+  if (size && size.width > 1400) {
+    transformScale = 1;
+  }
+
+  return (
+    <FullWidth>
+      <Height height={scatterRandomly ? height : undefined} background={palette.container}>
+        <PerfMarquee
+          artificialKey={artificialKey}
+          direction={direction}
+          velocity={velocity}
+          scatterRandomly={scatterRandomly}
+          scale={transformScale}
+          resetAfterTries={resetAfterTries}
+          motionVelocity={motionVelocity}
+          motionRadius={motionRadius}
+          iconsAmount={iconsAmount}
+          iconsMeta={iconsMeta}
+          palette={palette}
+          minScale={scale[0]}
+          maxScale={scale[1]}
+          onFinish={() => setLoading(false)}
+        />
+        <Loading loading={scatterRandomly && showLoading ? loading.toString() : false.toString()}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            width="200px"
+            height="200px"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="xMidYMid"
+          >
+            <defs>
+              <path id="path" d="M50 15A15 35 0 0 1 50 85A15 35 0 0 1 50 15" fill="none"></path>
+              <path id="patha" d="M0 0A15 35 0 0 1 0 70A15 35 0 0 1 0 0" fill="none"></path>
+            </defs>
+            <g transform="rotate(0 50 50)">
+              <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
+            </g>
+            <g transform="rotate(60 50 50)">
+              <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
+            </g>
+            <g transform="rotate(120 50 50)">
+              <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
+            </g>
+            <g transform="rotate(0 50 50)">
+              <circle cx="50" cy="15" r="9" fill="#e15b64">
+                <animateMotion dur="1s" repeatCount="indefinite" begin="0s">
+                  <mpath xlinkHref="#patha"></mpath>
+                </animateMotion>
+              </circle>
+            </g>
+            <g transform="rotate(60 50 50)">
+              <circle cx="50" cy="15" r="9" fill="#f8b26a">
+                <animateMotion dur="1s" repeatCount="indefinite" begin="-0.16666666666666666s">
+                  <mpath xlinkHref="#patha"></mpath>
+                </animateMotion>
+              </circle>
+            </g>
+            <g transform="rotate(120 50 50)">
+              <circle cx="50" cy="15" r="9" fill="#abbd81">
+                <animateMotion dur="1s" repeatCount="indefinite" begin="-0.3333333333333333s">
+                  <mpath xlinkHref="#patha"></mpath>
+                </animateMotion>
+              </circle>
+            </g>
+          </svg>
+        </Loading>
+      </Height>
+      <IFrame>
+        <Console logs={logs} variant="dark" />
+      </IFrame>
+    </FullWidth>
+  );
+};
 
 const Playground = () => {
   const [logs, setLogs] = useState([]);
@@ -421,7 +534,7 @@ const Playground = () => {
             }}
           />
           <Separator height={25} />
-          <Label label="Motion radius:" value={`${motionRadius}px`} />
+          <Label label="Motion radius:" value={`${motionRadius}px`} help="The icons each are encapsuled in another `div`, which rotates (hence the circular motion). However, these motion containers are the actual children and larger than the icons (play around with `SolarSystem` color palette to make the visible). Therefore: Don't make the radius too large, because it will cloak up the available space and slow down computation." />
           <Slider
             min={50}
             max={500}
@@ -453,10 +566,13 @@ const Playground = () => {
         </Settings>
       </Row>
 
-      <FullWidth>
-        <Height height={scatterRandomly ? height : undefined} background={palette.container}>
-          <PerfMarquee
+      <SizeMe>
+        {({ size }) => (
+          <PlaygroundDemo
+            size={size}
             artificialKey={key}
+            scatterRandomly={scatterRandomly}
+            height={height}
             direction={direction}
             velocity={velocity}
             scatterRandomly={scatterRandomly}
@@ -467,58 +583,14 @@ const Playground = () => {
             iconsAmount={iconsAmount}
             iconsMeta={iconsMeta}
             palette={palette}
-            onFinish={() => setLoading(false)}
+            loading={loading}
+            showLoading={showLoading}
+            setLoading={setLoading}
+            setKey={setKey}
+            logs={logs}
           />
-          <Loading loading={scatterRandomly && showLoading ? loading.toString() : false.toString()}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              width="200px"
-              height="200px"
-              viewBox="0 0 100 100"
-              preserveAspectRatio="xMidYMid"
-            >
-              <defs>
-                <path id="path" d="M50 15A15 35 0 0 1 50 85A15 35 0 0 1 50 15" fill="none"></path>
-                <path id="patha" d="M0 0A15 35 0 0 1 0 70A15 35 0 0 1 0 0" fill="none"></path>
-              </defs>
-              <g transform="rotate(0 50 50)">
-                <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
-              </g>
-              <g transform="rotate(60 50 50)">
-                <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
-              </g>
-              <g transform="rotate(120 50 50)">
-                <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
-              </g>
-              <g transform="rotate(0 50 50)">
-                <circle cx="50" cy="15" r="9" fill="#e15b64">
-                  <animateMotion dur="1s" repeatCount="indefinite" begin="0s">
-                    <mpath xlinkHref="#patha"></mpath>
-                  </animateMotion>
-                </circle>
-              </g>
-              <g transform="rotate(60 50 50)">
-                <circle cx="50" cy="15" r="9" fill="#f8b26a">
-                  <animateMotion dur="1s" repeatCount="indefinite" begin="-0.16666666666666666s">
-                    <mpath xlinkHref="#patha"></mpath>
-                  </animateMotion>
-                </circle>
-              </g>
-              <g transform="rotate(120 50 50)">
-                <circle cx="50" cy="15" r="9" fill="#abbd81">
-                  <animateMotion dur="1s" repeatCount="indefinite" begin="-0.3333333333333333s">
-                    <mpath xlinkHref="#patha"></mpath>
-                  </animateMotion>
-                </circle>
-              </g>
-            </svg>
-          </Loading>
-        </Height>
-        <IFrame>
-          <Console logs={logs} variant="dark" />
-        </IFrame>
-      </FullWidth>
+        )}
+      </SizeMe>
     </div>
   );
 };
