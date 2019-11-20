@@ -18,7 +18,7 @@ const Box = styled.div`
 `;
 
 const Review = styled.div`
-  width: ${props => props.scale * 300}px;
+  width: ${props => props.scale * 350}px;
   display: flex;
   padding: ${props => props.scale * 25}px;
   background: #fff;

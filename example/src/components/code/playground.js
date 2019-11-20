@@ -19,6 +19,7 @@ export default ({
   const code = `import React, { useState } from "react";
 import Marquee, { 
   Scale, 
+  Motion,
   randomIntFromInterval, 
   randomFloatFromInterval 
 } from "react-marquee-slider";

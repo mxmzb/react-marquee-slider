@@ -17,7 +17,7 @@ const Photo = styled.img\`
 
 const Reviews = () => (
   <div>
-    <div style={{ height: 200, paddingBottom: 60 }}>
+    <div style={{ height: 200 }}>
       <Marquee key={key} velocity={25} debug>
         {times(7, Number).map(id => (
           <Photo src={photos[id]} key={\`marquee-example-people-\${id}\`} style={{ 
@@ -27,6 +27,8 @@ const Reviews = () => (
       </Marquee>
     </div>
 
+    <div style={{ height: scale * 60 }} />
+    
     <div style={{ height: 200 }}>
       <Marquee key={key} velocity={25}>
         {times(7, Number).map(id => (

@@ -74,13 +74,15 @@ const People = ({ size }) => {
 
   return (
     <FullWidth>
-      <div style={{ height: scale * 200, paddingBottom: scale * 60 }}>
+      <div style={{ height: scale * 200 }}>
         <Marquee key={key} velocity={25} debug>
           {times(7, Number).map(id => (
             <Photo src={photos[id]} alt="" key={`marquee-example-people-${id}`} scale={scale} />
           ))}
         </Marquee>
       </div>
+
+      <div style={{ height: scale * 60 }} />
 
       <div style={{ height: scale * 200 }}>
         <Marquee key={key} velocity={25}>
