@@ -43,8 +43,9 @@ const Content = styled.div`
   p {
     margin: 0;
     color: #444;
-    font-size: ${props => props.scale * 0.875}rem;
-    line-height: ${props => props.scale * 1.25}rem;
+    font-family: Helvetica, sans-serif;
+    font-size: ${props => props.scale * 14}px;
+    line-height: ${props => props.scale * 20}px;
     font-weight: 100;
     text-align: left;
   }

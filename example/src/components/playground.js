@@ -14,6 +14,8 @@ import times from "lodash/times";
 import { SizeMe } from "react-sizeme";
 
 import FullWidth from "../components/FullWidth";
+import LoadingIcon from "../components/LoadingIcon";
+import CodePlayground from "../components/code/Playground";
 
 import logoAmazon from "../images/amazon.svg";
 import logoAngular from "../images/angular.svg";
@@ -153,6 +155,16 @@ const Label = ({ label, value, help, color }) => (
   </div>
 );
 
+const CodeNote = ({ url }) => (
+  <p>
+    Have a look{" "}
+    <a href={url} target="_blank">
+      at the original, full code for this example
+    </a>{" "}
+    or just the basic, simplified gist:
+  </p>
+);
+
 const PerfMarquee = React.memo(
   ({
     artificialKey,
@@ -259,49 +271,7 @@ const PlaygroundDemo = ({
           onFinish={() => setLoading(false)}
         />
         <Loading loading={scatterRandomly && showLoading ? loading.toString() : false.toString()}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            width="200px"
-            height="200px"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="xMidYMid"
-          >
-            <defs>
-              <path id="path" d="M50 15A15 35 0 0 1 50 85A15 35 0 0 1 50 15" fill="none"></path>
-              <path id="patha" d="M0 0A15 35 0 0 1 0 70A15 35 0 0 1 0 0" fill="none"></path>
-            </defs>
-            <g transform="rotate(0 50 50)">
-              <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
-            </g>
-            <g transform="rotate(60 50 50)">
-              <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
-            </g>
-            <g transform="rotate(120 50 50)">
-              <use xlinkHref="#path" stroke="#f1f2f3" strokeWidth="3"></use>
-            </g>
-            <g transform="rotate(0 50 50)">
-              <circle cx="50" cy="15" r="9" fill="#e15b64">
-                <animateMotion dur="1s" repeatCount="indefinite" begin="0s">
-                  <mpath xlinkHref="#patha"></mpath>
-                </animateMotion>
-              </circle>
-            </g>
-            <g transform="rotate(60 50 50)">
-              <circle cx="50" cy="15" r="9" fill="#f8b26a">
-                <animateMotion dur="1s" repeatCount="indefinite" begin="-0.16666666666666666s">
-                  <mpath xlinkHref="#patha"></mpath>
-                </animateMotion>
-              </circle>
-            </g>
-            <g transform="rotate(120 50 50)">
-              <circle cx="50" cy="15" r="9" fill="#abbd81">
-                <animateMotion dur="1s" repeatCount="indefinite" begin="-0.3333333333333333s">
-                  <mpath xlinkHref="#patha"></mpath>
-                </animateMotion>
-              </circle>
-            </g>
-          </svg>
+          <LoadingIcon />
         </Loading>
       </Height>
       <IFrame>
@@ -534,7 +504,11 @@ const Playground = () => {
             }}
           />
           <Separator height={25} />
-          <Label label="Motion radius:" value={`${motionRadius}px`} help="The icons each are encapsuled in another `div`, which rotates (hence the circular motion). However, these motion containers are the actual children and larger than the icons (play around with `SolarSystem` color palette to make the visible). Therefore: Don't make the radius too large, because it will cloak up the available space and slow down computation." />
+          <Label
+            label="Motion radius:"
+            value={`${motionRadius}px`}
+            help="The icons each are encapsuled in another `div`, which rotates (hence the circular motion). However, these motion containers are the actual children and larger than the icons (play around with `SolarSystem` color palette to make the visible). Therefore: Don't make the radius too large, because it will cloak up the available space and slow down computation."
+          />
           <Slider
             min={50}
             max={500}
@@ -591,6 +565,26 @@ const Playground = () => {
           />
         )}
       </SizeMe>
+
+      <Separator height={15} />
+      <CodeNote url="https://github.com/mxmzb/react-marquee-slider/blob/master/example/src/components/playground.js" />
+
+      <CodePlayground
+        height={height}
+        iconsAmount={iconsAmount}
+        palette={palette}
+        direction={direction}
+        velocity={velocity}
+        motionVelocity={motionVelocity}
+        motionRadius={motionRadius}
+        scatterRandomly={scatterRandomly}
+        minScale={scale[0]}
+        maxScale={scale[1]}
+        resetAfterTries={resetAfterTries}
+        loading={loading}
+        showLoading={showLoading}
+        debug
+      />
     </div>
   );
 };

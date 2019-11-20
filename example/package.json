@@ -25,6 +25,7 @@
     "react-dom": "^16.10.0",
     "react-helmet": "^5.2.1",
     "react-sizeme": "^2.6.10",
+    "react-syntax-highlighter": "^11.0.2",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {

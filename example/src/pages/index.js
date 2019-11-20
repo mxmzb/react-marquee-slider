@@ -3,10 +3,7 @@ import styled from "styled-components";
 
 import "../css/style.css";
 
-import Reviews from "../components/reviews";
-import Companies from "../components/companies";
-import People from "../components/people";
-import Playground from "../components/playground";
+import CompiledDemo from "../components/CompiledDemo";
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,6 +14,10 @@ const Wrapper = styled.div`
 const Content = styled.div`
   width: 100%;
   max-width: 800px;
+
+  & > p {
+    line-height: 1.5rem;
+  }
 `;
 
 const Separator = styled.div`
@@ -26,20 +27,7 @@ const Separator = styled.div`
 const IndexPage = () => (
   <Wrapper>
     <Content>
-      <h2>Companies</h2>
-      <Reviews />
-      <Separator height={50} />
-
-      <h2>Companies</h2>
-      <Companies />
-      <Separator height={50} />
-
-      <h2>People</h2>
-      <People />
-      <Separator height={50} />
-
-      <h2>Playground</h2>
-      <Playground />
+      <CompiledDemo />
     </Content>
 
     <Separator height={100} />
