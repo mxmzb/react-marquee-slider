@@ -7,7 +7,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "babel-plugin-styled-components": "^1.10.6",
-    "console-feed": "^2.8.10",
+    "console-feed": "mxmzb/console-feed#fix-node-builds",
     "gatsby": "^2.15.28",
     "gatsby-image": "^2.2.23",
     "gatsby-plugin-manifest": "^2.2.20",
@@ -41,7 +41,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
+    "postinstall": "cd node_modules/console-feed && yarn && yarn build"
   },
   "repository": {
     "type": "git",

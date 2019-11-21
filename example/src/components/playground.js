@@ -275,7 +275,9 @@ const PlaygroundDemo = ({
         </Loading>
       </Height>
       <IFrame>
-        <Console logs={logs} variant="dark" />
+        {typeof window !== "undefined" && window !== undefined && (
+          <Console logs={logs} variant="dark" />
+        )}
       </IFrame>
     </FullWidth>
   );
