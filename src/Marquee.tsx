@@ -1,6 +1,5 @@
 import React, { useState, useRef, ReactNode, useEffect, FC } from "react";
 import styled, { keyframes } from "styled-components";
-import { performance } from "perf_hooks";
 import Child from "./Child";
 
 import { Position } from "./Types";
@@ -37,6 +36,14 @@ const marqueeAnimLtr = keyframes`
     transform: translate(100%, 0);
   }
 `;
+
+const __safePerformanceNow = () => {
+  if (typeof window !== "undefined" && window !== undefined) {
+    return performance.now();
+  }
+
+  return 0;
+};
 
 const Mirror = styled.div<{ direction: "ltr" | "rtl" }>`
   min-width: 100%;
@@ -78,7 +85,7 @@ const Marquee: FC<MarqueeProps> = ({
   const containerRef = useRef(null);
   const marqueeRef = useRef(null);
 
-  const [t0] = useState(performance.now());
+  const [t0] = useState(__safePerformanceNow());
 
   useEffect(() => {
     if (scatterRandomly) {
@@ -122,7 +129,7 @@ const Marquee: FC<MarqueeProps> = ({
             childrenPosition.length === children.length
           ) {
             if (debug) {
-              const t1 = performance.now();
+              const t1 = __safePerformanceNow();
               console.log("FINISH");
               console.log(`Marquee took ${(t1 - t0) / totalTries} milliseconds per try.`);
               console.log(`Marquee took ${t1 - t0} milliseconds and ${totalTries} tries total.`);
