@@ -1,6 +1,5 @@
 import React, { useState, useRef, ReactNode, useEffect, FC } from "react";
 import styled, { keyframes } from "styled-components";
-// https://stackoverflow.com/questions/46436943/referenceerror-performance-is-not-defined-when-using-performance-now
 import { performance } from "perf_hooks";
 import Child from "./Child";
 
