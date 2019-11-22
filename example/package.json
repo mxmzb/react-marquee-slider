@@ -42,7 +42,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
-    "postinstall": "cd node_modules/console-feed && yarn && yarn build"
+    "postinstall": "cd ./node_modules/console-feed && yarn && yarn build"
   },
   "repository": {
     "type": "git",
