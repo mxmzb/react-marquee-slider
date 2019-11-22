@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import Reviews from "../components/reviews";
-import Companies from "../components/companies";
-import People from "../components/people";
-import Playground from "../components/playground";
+import Reviews from "./Reviews";
+import Companies from "./Companies";
+import People from "./People";
+import Playground from "./Playground";
 
-import CodeReviews from "../components/code/reviews";
-import CodeCompanies from "../components/code/companies";
-import CodePeople from "../components/code/people";
+import CodeReviews from "./code/Reviews";
+import CodeCompanies from "./code/Companies";
+import CodePeople from "./code/People";
 
 const Separator = styled.div`
   height: ${props => props.height}px;

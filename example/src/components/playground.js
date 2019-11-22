@@ -13,9 +13,9 @@ import { Hook, Console, Decode } from "console-feed";
 import times from "lodash/times";
 import { SizeMe } from "react-sizeme";
 
-import FullWidth from "../components/FullWidth";
-import LoadingIcon from "../components/LoadingIcon";
-import CodePlayground from "../components/code/Playground";
+import FullWidth from "./FullWidth";
+import LoadingIcon from "./LoadingIcon";
+import CodePlayground from "./code/Playground";
 
 import logoAmazon from "../images/amazon.svg";
 import logoAngular from "../images/angular.svg";
