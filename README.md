@@ -4,6 +4,10 @@
 
 <br />
 
+<img src="https://raw.githubusercontent.com/mxmzb/react-marquee-slider/master/img/screenshot.png" height="150" />
+
+<br />
+
 <h2 align="center">React Marquee Slider</h2>
 <h3 align="center">The marquee slider of your deepest dreams. Only for React.js</h3>
 
