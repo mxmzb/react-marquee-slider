@@ -31,7 +31,11 @@ import logoTwilio from "../images/twilio.svg";
 
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  @media (min-width: 42rem) {
+    flex-direction: row;
+  }
 `;
 
 const Height = styled.div`
@@ -72,11 +76,18 @@ const Logo = styled.img`
 `;
 
 const ColorPickers = styled.div`
-  width: 50%;
+  margin-bottom: 35px;
+
+  @media (min-width: 42rem) {
+    width: 50%;
+    margin-bottom: 0;
+  }
 `;
 
 const Settings = styled.div`
-  width: 50%;
+  @media (min-width: 42rem) {
+    width: 50%;
+  }
 `;
 
 const Separator = styled.div`
@@ -385,6 +396,7 @@ const Playground = () => {
           />
           <Separator height={25} />
 
+          <Label label="Direction:" />
           <RadioGroup defaultValue="ltr" name="customized-radios">
             <FormControlLabel
               value="ltr"
@@ -409,6 +421,9 @@ const Playground = () => {
               label="Right to left"
             />
           </RadioGroup>
+          <Separator height={25} />
+
+          <Label label="Random positioning:" />
           <FormControlLabel
             control={
               <Switch

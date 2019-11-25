@@ -13,3 +13,7 @@ html {
 *:after {
   box-sizing: inherit;
 }
+
+.github-picker {
+  box-sizing: content-box;
+}

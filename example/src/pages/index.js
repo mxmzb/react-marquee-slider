@@ -12,8 +12,10 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-  width: 100%;
-  max-width: 800px;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1.5rem;
 
   & > p {
     line-height: 1.5rem;

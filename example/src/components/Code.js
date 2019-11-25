@@ -5,7 +5,18 @@ import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin: 0 -16px;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+
+  @media (min-width: 42rem) {
+    margin: 0 -16px;
+  }
+
+  span.token {
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+  }
 `;
 
 SyntaxHighlighter.registerLanguage("jsx", jsx);
