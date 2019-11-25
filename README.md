@@ -4,10 +4,6 @@
 
 <br />
 
-<img src="https://raw.githubusercontent.com/mxmzb/react-marquee-slider/master/img/screenshot.png" />
-
-<br />
-
 <h2 align="center">React Marquee Slider</h2>
 <h3 align="center">The marquee slider of your deepest dreams. Only for React.js</h3>
 
@@ -23,6 +19,10 @@
   </a>
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
 </p>
+
+<br />
+
+<img src="https://raw.githubusercontent.com/mxmzb/react-marquee-slider/master/img/screenshot.png" />
 
 ### Example app and usage
 
