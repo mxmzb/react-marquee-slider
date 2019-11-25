@@ -4,7 +4,7 @@
 
 <br />
 
-<img src="https://raw.githubusercontent.com/mxmzb/react-marquee-slider/master/img/screenshot.png" height="150" />
+<img src="https://raw.githubusercontent.com/mxmzb/react-marquee-slider/master/img/screenshot.png" />
 
 <br />
 
