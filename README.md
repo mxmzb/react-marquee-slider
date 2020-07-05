@@ -7,6 +7,8 @@
 <h2 align="center">React Marquee Slider</h2>
 <h3 align="center">The marquee slider of your deepest dreams. Only for React.js</h3>
 
+<br />
+
 <p align="center">
   <a href="https://npmjs.org/package/react-marquee-slider">
     <img src="https://img.shields.io/npm/v/react-marquee-slider?style=for-the-badge" />

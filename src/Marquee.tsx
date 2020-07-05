@@ -44,7 +44,7 @@ type MarqueeProps = {
   scatterRandomly: boolean;
   resetAfterTries: number;
   onInit: () => void;
-  onFinish: ({ totalTries: number }) => void;
+  onFinish: ({ totalTries }: { totalTries: number }) => void;
 };
 
 const NESTED_UPDATE_LIMIT = 50;
