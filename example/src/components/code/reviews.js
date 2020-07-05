@@ -6,7 +6,7 @@ import Marquee from "react-marquee-slider";
 import times from "lodash/times";
 
 const Reviews = () => (
-  <Marquee key={key} velocity={25} scatterRandomly minScale={0.7} debug>
+  <Marquee key={key} velocity={25} scatterRandomly minScale={0.7}>
     {times(5, String).map(id => (
       <Box key={\`marquee-example-review-\${id}\`} scale={scale}>
         <Review scale={scale}>

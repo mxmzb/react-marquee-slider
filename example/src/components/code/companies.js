@@ -8,7 +8,7 @@ import times from "lodash/times";
 const Reviews = () => (
   <FullWidth>
     <Height height={500}>
-      <Marquee key={key} velocity={12} scatterRandomly minScale={0.7} resetAfterTries={200} debug>
+      <Marquee key={key} velocity={12} scatterRandomly minScale={0.7} resetAfterTries={200}>
         {_.times(8, Number).map(id => (
           <Motion
             key={\`marquee-example-company-\${id}\`}

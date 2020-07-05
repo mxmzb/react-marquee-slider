@@ -18,7 +18,7 @@ const Photo = styled.img\`
 const Reviews = () => (
   <div>
     <div style={{ height: 200 }}>
-      <Marquee key={key} velocity={25} debug>
+      <Marquee key={key} velocity={25}>
         {times(7, Number).map(id => (
           <Photo src={photos[id]} key={\`marquee-example-people-\${id}\`} style={{ 
             marginLeft: "87px",

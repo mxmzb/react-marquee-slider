@@ -74,7 +74,6 @@ const Reviews = () => {
         maxScale={${maxScale}}
         resetAfterTries={${resetAfterTries}}
         onFinish={() => setLoading(false)}
-        debug
       >
         {times(${iconsAmount}, Number).map(index => (
           <Scale scale={iconsMeta[index].scale} key={\`marquee-example-playground-\${index}\`}>

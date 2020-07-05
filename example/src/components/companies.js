@@ -3,7 +3,7 @@ import styled from "styled-components";
 import times from "lodash/times";
 import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
 import { withSize } from "react-sizeme";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 
 import FullWidth from "../components/FullWidth";
 
@@ -22,13 +22,13 @@ import logoTwilio from "../images/twilio.svg";
 const Height = styled.div`
   position: relative;
   width: 100%;
-  height: ${props => (props.height ? props.height + "px" : "auto")};
+  height: ${(props) => (props.height ? props.height + "px" : "auto")};
 `;
 
 const Company = styled.div`
   position: relative;
-  width: ${props => props.scale * 75}px;
-  height: ${props => props.scale * 75}px;
+  width: ${(props) => props.scale * 75}px;
+  height: ${(props) => props.scale * 75}px;
 `;
 
 const Circle = styled.div`
@@ -36,8 +36,8 @@ const Circle = styled.div`
   transform: scale(0.5);
   object-position: center center;
   will-change: transform, opacity;
-  width: ${props => props.scale * 150}px;
-  height: ${props => props.scale * 150}px;
+  width: ${(props) => props.scale * 150}px;
+  height: ${(props) => props.scale * 150}px;
   top: -50%;
   left: -50%;
   border-radius: 50%;
@@ -69,7 +69,7 @@ const icons = [
   logoTwilio,
 ];
 
-const Companies = ({ size }) => {
+const Companies = ({ size, onStartPerformance, onEndPerformance }) => {
   const [key, setKey] = useState(nanoid());
 
   useEffect(() => {
@@ -93,8 +93,16 @@ const Companies = ({ size }) => {
   return (
     <FullWidth>
       <Height height={500}>
-        <Marquee key={key} velocity={12} scatterRandomly minScale={0.7} resetAfterTries={200} debug>
-          {times(8, Number).map(id => (
+        <Marquee
+          key={key}
+          velocity={12}
+          scatterRandomly
+          minScale={0.7}
+          resetAfterTries={200}
+          onInit={onStartPerformance}
+          onFinish={onEndPerformance}
+        >
+          {times(8, Number).map((id) => (
             <Motion
               key={`marquee-example-company-${id}`}
               initDeg={randomIntFromInterval(0, 360)}
@@ -115,4 +123,4 @@ const Companies = ({ size }) => {
   );
 };
 
-export default withSize()(Companies);
+export default React.memo(withSize()(Companies));

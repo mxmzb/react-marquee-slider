@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import Marquee, {
   Motion,
   Scale,
@@ -6,15 +6,16 @@ import Marquee, {
   randomFloatFromInterval,
 } from "react-marquee-slider";
 import styled from "styled-components";
-import { Slider, FormControlLabel, RadioGroup, Radio, Switch } from "@material-ui/core";
-import nanoid from "nanoid";
+import { Slider, FormControlLabel, RadioGroup, Radio, Switch, Button } from "@material-ui/core";
+import { nanoid } from "nanoid";
 import { GithubPicker } from "react-color";
-import { Hook, Console, Decode } from "console-feed";
 import times from "lodash/times";
 import { SizeMe } from "react-sizeme";
 
 import FullWidth from "./FullWidth";
 import LoadingIcon from "./LoadingIcon";
+import ComputationTime from "./ComputationTime";
+
 import CodePlayground from "./code/Playground";
 
 import logoAmazon from "../images/amazon.svg";
@@ -41,14 +42,14 @@ const Row = styled.div`
 const Height = styled.div`
   position: relative;
   width: 100%;
-  height: ${props => (props.height ? props.height + "px" : "auto")};
-  background: ${props => props.background};
+  height: ${(props) => (props.height ? props.height + "px" : "auto")};
+  background: ${(props) => props.background};
 `;
 
 const Company = styled.div`
   position: relative;
-  width: ${props => props.scale * 75}px;
-  height: ${props => props.scale * 75}px;
+  width: ${(props) => props.scale * 75}px;
+  height: ${(props) => props.scale * 75}px;
 `;
 
 const Circle = styled.div`
@@ -56,8 +57,8 @@ const Circle = styled.div`
   transform: scale(0.5);
   object-position: center center;
   will-change: transform, opacity;
-  width: ${props => props.scale * 150}px;
-  height: ${props => props.scale * 150}px;
+  width: ${(props) => props.scale * 150}px;
+  height: ${(props) => props.scale * 150}px;
   top: -50%;
   left: -50%;
   border-radius: 50%;
@@ -78,6 +79,10 @@ const Logo = styled.img`
 const ColorPickers = styled.div`
   margin-bottom: 35px;
 
+  > .github-picker {
+    box-sizing: content-box !important;
+  }
+
   @media (min-width: 42rem) {
     width: 50%;
     margin-bottom: 0;
@@ -91,7 +96,7 @@ const Settings = styled.div`
 `;
 
 const Separator = styled.div`
-  height: ${props => props.height}px;
+  height: ${(props) => props.height}px;
 `;
 
 const SLabel = styled.label`
@@ -109,12 +114,6 @@ const Help = styled.span`
   color: #777;
 `;
 
-const IFrame = styled.div`
-  height: 200px;
-  overflow: scroll;
-  background: #242424;
-`;
-
 const Loading = styled.div`
   display: flex;
   position: absolute;
@@ -125,10 +124,14 @@ const Loading = styled.div`
   width: 100%;
   height: 100%;
   transition: all 1s linear;
-  opacity: ${props => (props.loading === "true" ? 1 : 0)};
+  opacity: ${(props) => (props.loading === "true" ? 1 : 0)};
   background: #fff;
   justify-content: center;
   align-items: center;
+`;
+
+const IconPadding = styled.div`
+  padding: 15px;
 `;
 
 const icons = [
@@ -169,7 +172,7 @@ const Label = ({ label, value, help, color }) => (
 const CodeNote = ({ url }) => (
   <p>
     Have a look{" "}
-    <a href={url} target="_blank">
+    <a href={url} target="_blank" rel="noreferrer">
       at the original, full code for this example
     </a>{" "}
     or just the basic, simplified gist:
@@ -188,6 +191,7 @@ const PerfMarquee = React.memo(
     resetAfterTries,
     iconsAmount,
     iconsMeta,
+    onInit,
     onFinish,
     motionVelocity,
     motionRadius,
@@ -201,23 +205,34 @@ const PerfMarquee = React.memo(
       minScale={minScale}
       maxScale={maxScale}
       resetAfterTries={resetAfterTries}
+      onInit={onInit}
       onFinish={onFinish}
-      debug
     >
-      {times(iconsAmount, Number).map(index => (
+      {times(iconsAmount, Number).map((index) => (
         <Scale scale={iconsMeta[index].scale} key={`marquee-example-playground-${index}`}>
-          <Motion
-            {...iconsMeta[index]}
-            velocity={motionVelocity}
-            radius={motionRadius}
-            backgroundColors={palette}
-          >
-            <Company scale={scale}>
-              <Circle scale={scale}>
-                <Logo src={icons[index]} alt="" />
-              </Circle>
-            </Company>
-          </Motion>
+          {motionVelocity > 0 && (
+            <Motion
+              {...iconsMeta[index]}
+              velocity={motionVelocity}
+              radius={motionRadius}
+              backgroundColors={palette}
+            >
+              <Company scale={scale}>
+                <Circle scale={scale}>
+                  <Logo src={icons[index]} alt="" />
+                </Circle>
+              </Company>
+            </Motion>
+          )}
+          {motionVelocity === 0 && (
+            <IconPadding>
+              <Company scale={scale}>
+                <Circle scale={scale}>
+                  <Logo src={icons[index]} alt="" />
+                </Circle>
+              </Company>
+            </IconPadding>
+          )}
         </Scale>
       ))}
     </Marquee>
@@ -241,8 +256,9 @@ const PlaygroundDemo = ({
   showLoading,
   setLoading,
   setKey,
-  logs,
   size,
+  onStartPerformance,
+  onEndPerformance,
 }) => {
   useEffect(() => {
     setKey(nanoid());
@@ -279,23 +295,21 @@ const PlaygroundDemo = ({
           palette={palette}
           minScale={scale[0]}
           maxScale={scale[1]}
-          onFinish={() => setLoading(false)}
+          onInit={onStartPerformance}
+          onFinish={({ totalTries }) => {
+            onEndPerformance({ totalTries });
+            setLoading(false);
+          }}
         />
         <Loading loading={scatterRandomly && showLoading ? loading.toString() : false.toString()}>
           <LoadingIcon />
         </Loading>
       </Height>
-      <IFrame>
-        {typeof window !== "undefined" && window !== undefined && (
-          <Console logs={logs} variant="dark" />
-        )}
-      </IFrame>
     </FullWidth>
   );
 };
 
-const Playground = () => {
-  const [logs, setLogs] = useState([]);
+const Playground = ({ perfData, onStartPerformance, onEndPerformance }) => {
   const [loading, setLoading] = useState(true);
   const [showLoading, setShowLoading] = useState(true);
   const [palette, setPalette] = useState({
@@ -315,6 +329,8 @@ const Playground = () => {
   const [scale, setScale] = useState([0.7, 1]);
   const [key, setKey] = useState(nanoid());
 
+  const prevVelocityRef = useRef(velocity);
+
   const iconsMeta = React.useMemo(() => {
     const metaArr = [];
     for (let i = 0; i < icons.length; i++) {
@@ -327,14 +343,6 @@ const Playground = () => {
     return metaArr;
   }, [scale, scale[0], scale[1]]);
 
-  useEffect(() => {
-    Hook(window.console, log => {
-      if (log[0].method !== "warn") {
-        setLogs(state => [...state, Decode(log)]);
-      }
-    });
-  }, []);
-
   return (
     <div>
       <Row>
@@ -342,7 +350,7 @@ const Playground = () => {
           <Label label="Container background color:" color={palette.container} />
           <GithubPicker
             color={palette.container}
-            onChange={val => setPalette({ ...palette, container: val.hex })}
+            onChange={(val) => setPalette({ ...palette, container: val.hex })}
             colors={colors}
             triangle="hide"
           />
@@ -351,7 +359,7 @@ const Playground = () => {
           <Label label="Child background color:" color={palette.buffer} />
           <GithubPicker
             color={palette.buffer}
-            onChange={val => setPalette({ ...palette, buffer: val.hex })}
+            onChange={(val) => setPalette({ ...palette, buffer: val.hex })}
             colors={colors}
             triangle="hide"
           />
@@ -360,7 +368,7 @@ const Playground = () => {
           <Label label="SolarSystem background color:" color={palette.solarSystem} />
           <GithubPicker
             color={palette.solarSystem}
-            onChange={val => setPalette({ ...palette, solarSystem: val.hex })}
+            onChange={(val) => setPalette({ ...palette, solarSystem: val.hex })}
             colors={colors}
             triangle="hide"
           />
@@ -369,7 +377,7 @@ const Playground = () => {
           <Label label="Earth background color:" color={palette.earth} />
           <GithubPicker
             color={palette.earth}
-            onChange={val => setPalette({ ...palette, earth: val.hex })}
+            onChange={(val) => setPalette({ ...palette, earth: val.hex })}
             colors={colors}
             triangle="hide"
           />
@@ -386,7 +394,7 @@ const Playground = () => {
             max={icons.length}
             value={iconsAmount}
             step={1}
-            getAriaValueText={v => v}
+            getAriaValueText={(v) => v}
             valueLabelDisplay="auto"
             onChange={(_, val) => {
               setLoading(true);
@@ -404,7 +412,7 @@ const Playground = () => {
                 <Radio
                   color="primary"
                   checked={direction === "ltr"}
-                  onChange={evt => setDirection(evt.target.value)}
+                  onChange={(evt) => setDirection(evt.target.value)}
                 />
               }
               label="Left to right"
@@ -415,7 +423,7 @@ const Playground = () => {
                 <Radio
                   color="primary"
                   checked={direction === "rtl"}
-                  onChange={evt => setDirection(evt.target.value)}
+                  onChange={(evt) => setDirection(evt.target.value)}
                 />
               }
               label="Right to left"
@@ -452,7 +460,7 @@ const Playground = () => {
                 max={1000}
                 value={height}
                 step={50}
-                getAriaValueText={v => v}
+                getAriaValueText={(v) => v}
                 valueLabelDisplay="auto"
                 onChange={(_, val) => {
                   setLoading(true);
@@ -468,7 +476,7 @@ const Playground = () => {
                 max={10000}
                 value={resetAfterTries}
                 step={50}
-                getAriaValueText={v => v}
+                getAriaValueText={(v) => v}
                 valueLabelDisplay="auto"
                 onChange={(_, val) => {
                   setLoading(true);
@@ -499,46 +507,72 @@ const Playground = () => {
 
           <Label label="Velocity:" value={`${velocity}px / s`} />
           <Slider
-            min={1}
+            min={0}
             max={1000}
             value={velocity}
-            getAriaValueText={v => v}
+            getAriaValueText={(v) => v}
             valueLabelDisplay="auto"
             onChange={(_, val) => {
               setVelocity(val);
             }}
           />
           <Separator height={25} />
+
+          <Label
+            label="Pause / Resume:"
+            help="This is a shortcut to toggling velocity to 0 and back, without going through all the other values of the slider that come before 0."
+          />
+          <Button
+            onClick={() => {
+              if (velocity === 0) {
+                setVelocity(prevVelocityRef.current);
+              } else {
+                prevVelocityRef.current = velocity;
+                setVelocity(0);
+              }
+            }}
+            color="primary"
+            variant="contained"
+            disableElevation
+          >
+            {velocity === 0 ? "Resume slider" : "Pause slider"}
+          </Button>
+          <Separator height={25} />
+
           <Label label="Motion velocity:" value={`${motionVelocity}px / s`} />
           <Slider
-            min={1}
+            min={0}
             max={1000}
             value={motionVelocity}
-            getAriaValueText={v => v}
+            getAriaValueText={(v) => v}
             valueLabelDisplay="auto"
             onChange={(_, val) => {
               setMotionVelocity(val);
             }}
           />
-          <Separator height={25} />
-          <Label
-            label="Motion radius:"
-            value={`${motionRadius}px`}
-            help="The icons each are encapsuled in another `div`, which rotates (hence the circular motion). However, these motion containers are the actual children and larger than the icons (play around with `SolarSystem` color palette to make the visible). Therefore: Don't make the radius too large, because it will cloak up the available space and slow down computation."
-          />
-          <Slider
-            min={50}
-            max={500}
-            step={10}
-            value={motionRadius}
-            getAriaValueText={v => v}
-            valueLabelDisplay="auto"
-            onChange={(_, val) => {
-              setLoading(true);
-              setKey(nanoid());
-              setMotionRadius(val);
-            }}
-          />
+          {motionVelocity > 0 && (
+            <>
+              <Separator height={25} />
+              <Label
+                label="Motion radius:"
+                value={`${motionRadius}px`}
+                help="The icons each are encapsuled in another `div`, which rotates (hence the circular motion). However, these motion containers are the actual children and larger than the icons (play around with `SolarSystem` color palette to make the visible). Therefore: Don't make the radius too large, because it will cloak up the available space and slow down computation."
+              />
+              <Slider
+                min={50}
+                max={500}
+                step={10}
+                value={motionRadius}
+                getAriaValueText={(v) => v}
+                valueLabelDisplay="auto"
+                onChange={(_, val) => {
+                  setLoading(true);
+                  setKey(nanoid());
+                  setMotionRadius(val);
+                }}
+              />
+            </>
+          )}
           <Separator height={25} />
           <Label label="Scale:" value={`min(${scale[0]}) max(${scale[1]})`} />
           <Slider
@@ -546,7 +580,7 @@ const Playground = () => {
             max={1}
             step={0.1}
             value={scale}
-            getAriaValueText={v => v}
+            getAriaValueText={(v) => v}
             valueLabelDisplay="auto"
             onChange={(_, val) => {
               setLoading(true);
@@ -578,11 +612,13 @@ const Playground = () => {
             showLoading={showLoading}
             setLoading={setLoading}
             setKey={setKey}
-            logs={logs}
+            onStartPerformance={onStartPerformance}
+            onEndPerformance={onEndPerformance}
           />
         )}
       </SizeMe>
-
+      <Separator height={15} />
+      <ComputationTime perfData={perfData} />
       <Separator height={15} />
       <CodeNote url="https://github.com/mxmzb/react-marquee-slider/blob/master/example/src/components/playground.js" />
 
@@ -600,7 +636,6 @@ const Playground = () => {
         resetAfterTries={resetAfterTries}
         loading={loading}
         showLoading={showLoading}
-        debug
       />
     </div>
   );
