@@ -65,8 +65,6 @@ const CompiledDemo = () => {
   );
 
   const onCompaniesEndPerformance = useCallback(({ totalTries }) => {
-    console.log("onCompaniesEndPerformance.totalTries", totalTries);
-    console.log("onCompaniesEndPerformance.t0", t0);
     setPerfData((prevPerfData) =>
       Object.assign({}, prevPerfData, {
         companies: {
@@ -108,8 +106,6 @@ const CompiledDemo = () => {
       }),
     );
   }, []);
-
-  console.log("actual perfData", perfData);
 
   return (
     <div>

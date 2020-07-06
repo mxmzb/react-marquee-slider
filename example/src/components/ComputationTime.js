@@ -16,8 +16,6 @@ const ComputationTime = ({ perfData, instant }) => {
   const computationTime = get(perfData, "computationTime", false);
   const totalTries = get(perfData, "totalTries", false);
 
-  console.log("perfData", perfData);
-
   if (instant) {
     return (
       <AlertBox>
