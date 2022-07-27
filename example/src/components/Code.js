@@ -1,7 +1,7 @@
 import React from "react";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
+import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
 import styled from "styled-components";
 
 const Container = styled.div`

@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import "../css/style.css";
-
 import CompiledDemo from "../components/CompiledDemo";
 
 const Wrapper = styled.div`
@@ -23,7 +21,7 @@ const Content = styled.div`
 `;
 
 const Separator = styled.div`
-  height: ${props => props.height}px;
+  height: ${(props) => props.height}px;
 `;
 
 const IndexPage = () => (

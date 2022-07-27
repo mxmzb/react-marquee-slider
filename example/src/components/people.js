@@ -7,21 +7,6 @@ import { nanoid } from "nanoid";
 
 import FullWidth from "../components/FullWidth";
 
-import photoPeople1 from "../images/people-1.jpg";
-import photoPeople2 from "../images/people-2.jpg";
-import photoPeople3 from "../images/people-3.jpg";
-import photoPeople4 from "../images/people-4.jpg";
-import photoPeople5 from "../images/people-5.jpg";
-import photoPeople6 from "../images/people-6.jpg";
-import photoPeople7 from "../images/people-7.jpg";
-import photoPeople8 from "../images/people-8.jpg";
-import photoPeople9 from "../images/people-9.jpg";
-import photoPeople10 from "../images/people-10.jpg";
-import photoPeople11 from "../images/people-11.jpg";
-import photoPeople12 from "../images/people-12.jpg";
-import photoPeople13 from "../images/people-13.jpg";
-import photoPeople14 from "../images/people-14.jpg";
-
 const Photo = styled.img`
   width: ${(props) => props.scale * 368}px;
   height: ${(props) => props.scale * 200}px;
@@ -35,20 +20,20 @@ const Photo = styled.img`
 `;
 
 const photos = [
-  photoPeople1,
-  photoPeople2,
-  photoPeople3,
-  photoPeople4,
-  photoPeople5,
-  photoPeople6,
-  photoPeople7,
-  photoPeople8,
-  photoPeople9,
-  photoPeople10,
-  photoPeople11,
-  photoPeople12,
-  photoPeople13,
-  photoPeople14,
+  "/assets/images/people-1.jpg",
+  "/assets/images/people-2.jpg",
+  "/assets/images/people-3.jpg",
+  "/assets/images/people-4.jpg",
+  "/assets/images/people-5.jpg",
+  "/assets/images/people-6.jpg",
+  "/assets/images/people-7.jpg",
+  "/assets/images/people-8.jpg",
+  "/assets/images/people-9.jpg",
+  "/assets/images/people-10.jpg",
+  "/assets/images/people-11.jpg",
+  "/assets/images/people-12.jpg",
+  "/assets/images/people-13.jpg",
+  "/assets/images/people-14.jpg",
 ];
 
 const People = ({ size }) => {

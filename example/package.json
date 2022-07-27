@@ -1,49 +1,28 @@
 {
-  "name": "gatsby-starter-default",
-  "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "name": "example",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "dependencies": {
-    "@material-ui/core": "^4.5.1",
-    "babel-plugin-styled-components": "^1.10.6",
-    "gatsby": "^2.15.28",
-    "gatsby-image": "^2.2.23",
-    "gatsby-plugin-manifest": "^2.2.20",
-    "gatsby-plugin-offline": "^3.0.11",
-    "gatsby-plugin-react-helmet": "^3.1.10",
-    "gatsby-plugin-sharp": "^2.2.27",
-    "gatsby-plugin-styled-components": "^3.1.8",
-    "gatsby-source-filesystem": "^2.1.28",
-    "gatsby-transformer-sharp": "^2.2.19",
-    "lodash": "^4.17.15",
-    "nanoid": "^3.1.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.10.0",
-    "react-color": "^2.17.3",
-    "react-dom": "^16.10.0",
-    "react-helmet": "^6.1.0",
-    "react-sizeme": "^2.6.10",
-    "react-syntax-highlighter": "^12.0.0",
-    "styled-components": "^5.1.0"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
+  "private": true,
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.0",
+    "next": "12.2.3",
+    "react": "18.2.0",
+    "react-color": "^2.19.3",
+    "react-dom": "18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-sizeme": "^3.0.2",
+    "react-syntax-highlighter": "^15.5.0",
+    "styled-components": "^5.3.5"
   },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-next": "12.2.3"
   }
 }

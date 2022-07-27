@@ -18,18 +18,6 @@ import ComputationTime from "./ComputationTime";
 
 import CodePlayground from "./code/Playground";
 
-import logoAmazon from "../images/amazon.svg";
-import logoAngular from "../images/angular.svg";
-import logoApple from "../images/apple.svg";
-import logoGatsby from "../images/gatsby.svg";
-import logoLamborghini from "../images/lamborghini.svg";
-import logoMicrosoft from "../images/microsoft.svg";
-import logoNext from "../images/next.svg";
-import logoPython from "../images/python.svg";
-import logoRollsRoyce from "../images/rolls-royce.svg";
-import logoTesla from "../images/tesla-motors.svg";
-import logoTwilio from "../images/twilio.svg";
-
 const Row = styled.div`
   display: flex;
   flex-direction: column;
@@ -135,17 +123,17 @@ const IconPadding = styled.div`
 `;
 
 const icons = [
-  logoAmazon,
-  logoGatsby,
-  logoAngular,
-  logoApple,
-  logoLamborghini,
-  logoMicrosoft,
-  logoNext,
-  logoPython,
-  logoRollsRoyce,
-  logoTesla,
-  logoTwilio,
+  "/assets/images/amazon.svg",
+  "/assets/images/gatsby.svg",
+  "/assets/images/angular.svg",
+  "/assets/images/apple.svg",
+  "/assets/images/lamborghini.svg",
+  "/assets/images/microsoft.svg",
+  "/assets/images/next.svg",
+  "/assets/images/python.svg",
+  "/assets/images/rolls-royce.svg",
+  "/assets/tesla-motors.svg",
+  "/assets/images/twilio.svg",
 ];
 
 const colors = [
