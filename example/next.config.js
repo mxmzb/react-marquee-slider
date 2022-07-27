@@ -10,6 +10,7 @@ const nextConfig = {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
+
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
