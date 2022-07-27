@@ -3,3 +3,12 @@ node_modules
 .DS_Store
 .jest
 img/social-poster.psd
+
+# See https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored (not using zero-installs)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
