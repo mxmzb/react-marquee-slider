@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useState, useEffect, ReactNode, FC } from "react";
 import styled, { keyframes } from "styled-components";
 
@@ -61,24 +63,28 @@ const reconciliation = (initDeg: number, direction: string) => keyframes`
 
 type Props = {
   children: ReactNode;
-  initDeg: number;
-  velocity: number; // move x pixels per second
-  radius: number;
-  backgroundColors: {
+  initDeg?: number;
+  velocity?: number; // move x pixels per second
+  radius?: number;
+  backgroundColors?: {
     earth: string;
     solarSystem: string;
     buffer: string;
   };
-  direction: "clockwise" | "counterclockwise";
+  direction?: "clockwise" | "counterclockwise";
 };
 
 const Motion: FC<Props> = ({
   children,
-  initDeg,
-  direction,
-  velocity,
-  radius,
-  backgroundColors,
+  initDeg = 0,
+  velocity = 10, // move x pixels per second
+  radius = 10,
+  direction = "clockwise",
+  backgroundColors = {
+    earth: "transparent",
+    solarSystem: "transparent",
+    buffer: "transparent",
+  },
 }: Props) => {
   const earthRef = useRef(null);
   const [earthSize, setEarthSize] = useState({ width: 0, height: 0 });
@@ -119,18 +125,6 @@ const Motion: FC<Props> = ({
       </Space>
     </Container>
   );
-};
-
-Motion.defaultProps = {
-  initDeg: 0,
-  velocity: 10, // move x pixels per second
-  radius: 10,
-  direction: "clockwise",
-  backgroundColors: {
-    earth: "transparent",
-    solarSystem: "transparent",
-    buffer: "transparent",
-  },
 };
 
 export default Motion;

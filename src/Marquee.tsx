@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, ReactNode, useEffect, FC } from "react";
 import styled, { keyframes, css } from "styled-components";
 import Child from "./Child";
@@ -75,7 +77,9 @@ const Marquee: FC<MarqueeProps> = React.memo(
 
     useEffect(() => {
       if (isInitRender.current) {
-        onInit();
+        if (typeof onInit === "function") {
+          onInit();
+        }
         isInitRender.current = false;
       }
     }, [onInit]);
