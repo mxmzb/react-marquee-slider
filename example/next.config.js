@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["react-marquee-slider", "styled-components"],
   reactStrictMode: true,
-  swcMinify: true,
   experimental: {
     externalDir: true,
     esmExternals: true,

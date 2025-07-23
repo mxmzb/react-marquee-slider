@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
 import styled from "styled-components";
 
 import CompiledDemo from "../components/CompiledDemo";
+
+import "../css/style.css";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,14 +28,19 @@ const Separator = styled.div`
   height: ${(props) => props.height}px;
 `;
 
-const IndexPage = () => (
-  <Wrapper>
-    <Content>
-      <CompiledDemo />
-    </Content>
 
-    <Separator height={100} />
-  </Wrapper>
-);
+const IndexPage = () => {
+
+
+  return (
+    <Wrapper>
+      <Content>
+        <CompiledDemo />
+      </Content>
+
+      <Separator height={100} />
+    </Wrapper>
+  );
+};
 
 export default IndexPage;
