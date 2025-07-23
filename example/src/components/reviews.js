@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Marquee from "react-marquee-slider";
 import styled from "styled-components";
 import times from "lodash/times";
-import { withSize } from "react-sizeme";
 import { nanoid } from "nanoid";
+
+import { useSize } from "../hooks/useSize";
 
 import FullWidth from "../components/FullWidth";
 
@@ -59,8 +60,10 @@ const portraits = [
   "https://randomuser.me/api/portraits/men/26.jpg",
 ];
 
-const Reviews = ({ size, onStartPerformance, onEndPerformance }) => {
+const Reviews = ({ onStartPerformance, onEndPerformance }) => {
   const [key, setKey] = useState(nanoid());
+
+  const [sizeRef, size] = useSize();
 
   useEffect(() => {
     setKey(nanoid());
@@ -81,7 +84,7 @@ const Reviews = ({ size, onStartPerformance, onEndPerformance }) => {
   }
 
   return (
-    <FullWidth>
+    <FullWidth ref={sizeRef}>
       <Height height={600}>
         <Marquee
           key={key}
@@ -113,4 +116,4 @@ const Reviews = ({ size, onStartPerformance, onEndPerformance }) => {
 };
 
 // will end in a loop without React.memo
-export default React.memo(withSize()(Reviews));
+export default React.memo(Reviews);

@@ -1,9 +1,12 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import times from "lodash/times";
 import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
-import { withSize } from "react-sizeme";
 import { nanoid } from "nanoid";
+
+import { useSize } from "../hooks/useSize";
 
 import FullWidth from "../components/FullWidth";
 
@@ -29,7 +32,9 @@ const Circle = styled.div`
   top: -50%;
   left: -50%;
   border-radius: 50%;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.07);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,8 +62,10 @@ const icons = [
   "/assets/images/twilio.svg",
 ];
 
-const Companies = ({ size, onStartPerformance, onEndPerformance }) => {
+const Companies = ({ onStartPerformance, onEndPerformance }) => {
   const [key, setKey] = useState(nanoid());
+
+  const [sizeRef, size] = useSize();
 
   useEffect(() => {
     setKey(nanoid());
@@ -79,7 +86,7 @@ const Companies = ({ size, onStartPerformance, onEndPerformance }) => {
   }
 
   return (
-    <FullWidth>
+    <FullWidth ref={sizeRef}>
       <Height height={500}>
         <Marquee
           key={key}
@@ -111,4 +118,4 @@ const Companies = ({ size, onStartPerformance, onEndPerformance }) => {
   );
 };
 
-export default React.memo(withSize()(Companies));
+export default React.memo(Companies);

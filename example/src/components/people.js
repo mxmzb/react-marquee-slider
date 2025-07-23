@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import times from "lodash/times";
 import Marquee from "react-marquee-slider";
-import { withSize } from "react-sizeme";
 import { nanoid } from "nanoid";
+
+import { useSize } from "../hooks/useSize";
 
 import FullWidth from "../components/FullWidth";
 
@@ -36,8 +37,10 @@ const photos = [
   "/assets/images/people-14.jpg",
 ];
 
-const People = ({ size }) => {
+const People = () => {
   const [key, setKey] = useState(nanoid());
+
+  const [sizeRef, size] = useSize();
 
   useEffect(() => {
     setKey(nanoid());
@@ -58,7 +61,7 @@ const People = ({ size }) => {
   }
 
   return (
-    <FullWidth>
+    <FullWidth ref={sizeRef}>
       <div style={{ height: scale * 200 }}>
         <Marquee key={key} velocity={25}>
           {times(7, Number).map((id) => (
@@ -86,4 +89,4 @@ const People = ({ size }) => {
   );
 };
 
-export default withSize()(People);
+export default People;

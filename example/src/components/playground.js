@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import Marquee, {
   Motion,
@@ -6,17 +8,18 @@ import Marquee, {
   randomFloatFromInterval,
 } from "react-marquee-slider";
 import styled from "styled-components";
-import { Slider, FormControlLabel, RadioGroup, Radio, Switch, Button } from "@material-ui/core";
+import { Slider, FormControlLabel, RadioGroup, Radio, Switch, Button } from "@mui/material";
 import { nanoid } from "nanoid";
 import { GithubPicker } from "react-color";
 import times from "lodash/times";
-import { SizeMe } from "react-sizeme";
 
 import FullWidth from "./FullWidth";
 import LoadingIcon from "./LoadingIcon";
 import ComputationTime from "./ComputationTime";
 
 import CodePlayground from "./code/Playground";
+
+import { useSize } from "../hooks/useSize";
 
 const Row = styled.div`
   display: flex;
@@ -50,7 +53,9 @@ const Circle = styled.div`
   top: -50%;
   left: -50%;
   border-radius: 50%;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.07);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -319,6 +324,8 @@ const Playground = ({ perfData, onStartPerformance, onEndPerformance }) => {
 
   const prevVelocityRef = useRef(velocity);
 
+  const [sizeRef, size] = useSize();
+
   const iconsMeta = React.useMemo(() => {
     const metaArr = [];
     for (let i = 0; i < icons.length; i++) {
@@ -579,32 +586,30 @@ const Playground = ({ perfData, onStartPerformance, onEndPerformance }) => {
         </Settings>
       </Row>
 
-      <SizeMe>
-        {({ size }) => (
-          <PlaygroundDemo
-            size={size}
-            artificialKey={key}
-            scatterRandomly={scatterRandomly}
-            height={height}
-            direction={direction}
-            velocity={velocity}
-            scatterRandomly={scatterRandomly}
-            scale={scale}
-            resetAfterTries={resetAfterTries}
-            motionVelocity={motionVelocity}
-            motionRadius={motionRadius}
-            iconsAmount={iconsAmount}
-            iconsMeta={iconsMeta}
-            palette={palette}
-            loading={loading}
-            showLoading={showLoading}
-            setLoading={setLoading}
-            setKey={setKey}
-            onStartPerformance={onStartPerformance}
-            onEndPerformance={onEndPerformance}
-          />
-        )}
-      </SizeMe>
+      <div ref={sizeRef}>
+        <PlaygroundDemo
+          size={size}
+          artificialKey={key}
+          scatterRandomly={scatterRandomly}
+          height={height}
+          direction={direction}
+          velocity={velocity}
+          scatterRandomly={scatterRandomly}
+          scale={scale}
+          resetAfterTries={resetAfterTries}
+          motionVelocity={motionVelocity}
+          motionRadius={motionRadius}
+          iconsAmount={iconsAmount}
+          iconsMeta={iconsMeta}
+          palette={palette}
+          loading={loading}
+          showLoading={showLoading}
+          setLoading={setLoading}
+          setKey={setKey}
+          onStartPerformance={onStartPerformance}
+          onEndPerformance={onEndPerformance}
+        />
+      </div>
       <Separator height={15} />
       <ComputationTime perfData={perfData} />
       <Separator height={15} />
