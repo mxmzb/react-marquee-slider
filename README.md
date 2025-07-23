@@ -32,24 +32,24 @@ Try the [online demo](https://maximzubarev.com/project/react-marquee-slider/demo
 
 ```sh
 $ git clone https://github.com/mxmzb/react-marquee-slider.git
-$ cd react-marquee-slider && yarn
-$ cd example && yarn
-$ yarn start
+$ cd react-marquee-slider && bun i
+$ cd example && bun i
+$ bun dev
 ```
 
-After installing the demo locally you can visit it at http://localhost:8000
+After installing the demo locally you can visit it at http://localhost:3000
 
 ## Intro
 
 As I've repeatedly run across such marquee sliders over time, I always wanted to have one on my site, too. Unfortunately, there simply is not a single plugin like this. Neither for jQuery back in the days nor for anything modern. In fact, all the marquees I had seen where the children seemed to be randomly positioned within a space, were manually set.
 
-This changes with `react-marquee-slider`. It's inspired by the beautiful use of marquee by the [Zeit](https://zeit.co) guys and boasts with unparalleled performance thanks to CSS animations. You can read more about the background and making of [here](https://maximzubarev.com/project/react-marquee-slider).
+This changes with `react-marquee-slider`. It boasts unparalleled performance thanks to CSS animations. You can read more about the background and making of [here](https://maximzubarev.com/project/react-marquee-slider).
 
 ## Installation
 
 ```
-$ yarn add react-marquee-slider
-$ yarn add lodash styled-components # install peer dependencies
+$ bun i react-marquee-slider
+$ bun i --peer lodash styled-components # install peer dependencies
 ```
 
 ## Quickstart

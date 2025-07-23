@@ -9,20 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.2.0",
     "lodash": "^4.17.21",
-    "nanoid": "^4.0.0",
-    "next": "12.2.3",
-    "react": "18.2.0",
+    "nanoid": "^5.1.5",
+    "next": "^15.4.3",
+    "react": "^19.1.0",
     "react-color": "^2.19.3",
-    "react-dom": "18.2.0",
+    "react-dom": "^19.1.0",
     "react-helmet": "^6.1.0",
     "react-sizeme": "^3.0.2",
-    "react-syntax-highlighter": "^15.5.0",
-    "styled-components": "^5.3.5"
+    "react-syntax-highlighter": "^15.6.1"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-next": "12.2.3"
+    "@types/node": "^24.1.0",
+    "eslint": "^9.31.0",
+    "eslint-config-next": "15.4.3"
   }
 }
